@@ -8,6 +8,7 @@ const mongoose = require("mongoose");
 const app = express();
 
 const homePageRoutes = require("./routes/homepage");
+const userPageRoutes = require("./routes/user");
 
 // Middleware Setup
 app.use(bodyParser.json());
@@ -24,6 +25,7 @@ hbsutils.registerPartials(__dirname + "/views/partials");
 hbsutils.registerWatchedPartials(__dirname + "/views/partials");
 
 app.use(homePageRoutes);
+app.use(userPageRoutes);
 
 mongoose
   .connect(
