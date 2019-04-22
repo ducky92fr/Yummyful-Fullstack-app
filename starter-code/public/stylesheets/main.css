@@ -1,0 +1,67 @@
+@import url("https://fonts.googleapis.com/css?family=Poiret+One");
+
+* {
+  margin: 0;
+  padding: 0;
+  font-family: "Poiret One", cursive;
+  font-weight: bolder;
+}
+
+.header {
+  box-shadow: 0 4px 6px -6px;
+}
+
+#navbar-brand {
+  height: 5rem;
+}
+
+#logo {
+  max-height: 100%;
+  max-width: 100%;
+}
+
+#connection-btn {
+  background-color: rgb(190, 226, 60);
+}
+
+#connection-btn:hover {
+  background-color: rgb(160, 190, 52);
+}
+
+main {
+  margin-top: 100px;
+}
+
+h1 {
+  text-align: center;
+}
+
+.recipes-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+  grid-template-rows: repeat(4, 1fr);
+  margin: 100px 30px;
+}
+
+.recipe {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  height: 300px;
+  font-size: 20px;
+  margin: 5px;
+  border: 1px solid black;
+}
+
+/* .burger {
+  max-height: 100%;
+  max-width: 100%;
+  color: red;
+  display: flex;
+  justify-content: center;
+} */
+
+.search {
+  width: 500px;
+}
