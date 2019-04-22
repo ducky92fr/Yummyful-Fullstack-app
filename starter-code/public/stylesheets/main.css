@@ -7,33 +7,14 @@
   font-weight: bolder;
 }
 
-/* .header {
-  box-shadow: 0 4px 6px -6px;
-} */
-
-#navbar-brand {
-  height: 5rem;
-}
-
-#logo {
-  max-height: 100%;
-  max-width: 100%;
-}
-
-#connection-btn {
-  background-color: rgb(190, 226, 60);
-}
-
-#connection-btn:hover {
-  background-color: rgb(160, 190, 52);
-}
-
 main {
-  margin-top: 100px;
+  margin: 7rem auto;
 }
 
 h1 {
   text-align: center;
+  font-size: 2rem;
+  margin: 0;
 }
 
 .recipes-container {
@@ -48,8 +29,8 @@ h1 {
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
-  height: 300px;
-  font-size: 20px;
-  margin: 5px;
-  border: 1px solid black;
+  height: 25rem;
+  font-size: 1.7rem;
+  margin: 1rem;
+  border: 0.1rem solid black;
 }

@@ -1,4 +1,4 @@
-<nav class="navbar is-fixed-top header is-mobile" role="navigation" aria-label="main navigation">
+{{!-- <nav class="navbar is-fixed-top header is-mobile" role="navigation" aria-label="main navigation">
   <div class="navbar-brand" id="navbar-brand">
     <a class="navbar-item" href="/">
       <img src="../logo.png" id="logo" width="200" height="180">
@@ -40,6 +40,61 @@
     {{else}}
     <div class="navbar-item has-dropdown is-hoverable">
       <a class="navbar-link">
+        Connection
+      </a>
+      <div class="navbar-dropdown">
+        <a class="navbar-item" href="/user">
+          Login
+        </a>
+        <a class="navbar-item" href="/home">
+          Signup
+        </a>
+      </div>
+    </div>
+    {{/if}}
+</nav> --}}
+
+<nav class="navbar is-fixed-top header is-mobile" role="navigation" aria-label="main navigation">
+  <div class="navbar-brand" id="navbar-brand">
+    <a class="navbar-item" href="/">
+      <img src="../logo.png" id="logo" width="200" height="180">
+    </a>
+    <a role="button" class="navbar-burger burger" id="burger" aria-label="menu" aria-expanded="false"
+      data-target="navbarBasicExample">
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+    </a>
+  </div>
+  <div id="navbarBasicExample" class="navbar-menu">
+    <div class="navbar-start">
+      <a class="navbar-item" href="/home">
+        Home
+      </a>
+      <a class="navbar-item">
+        Recipes
+      </a>
+      <a class="navbar-item" href="/user">
+        Your Recipes
+      </a>
+    </div>
+    {{#if login}}
+    <div class="navbar-item has-dropdown is-hoverable">
+      <a class="navbar-link " href="/user">
+        My profile
+      </a>
+      <div class="navbar-dropdown">
+        <a class="navbar-item">
+          My recipes
+        </a>
+        <a class="navbar-item" href="/home">
+          Logout
+        </a>
+      </div>
+    </div>
+    {{else}}
+    <div class="navbar-item has-dropdown is-hoverable">
+      <a class="navbar-link" id="connection-menu">
         Connection
       </a>
       <div class="navbar-dropdown">

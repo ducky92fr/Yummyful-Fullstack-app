@@ -1,3 +1,29 @@
+.header {
+  box-shadow: 0 4px 6px -6px;
+}
+
+#navbar-brand {
+  height: 5rem;
+}
+
+#logo {
+  max-height: 100%;
+  max-width: 100%;
+}
+
+#connection-menu {
+  background-color: rgb(190, 226, 60);
+  border-radius: 1rem;
+  margin: 1rem;
+  color: white;
+}
+
+#connection-menu:hover {
+  background-color: rgb(160, 190, 52);
+  border-radius: 1rem;
+  margin: 1rem;
+}
+
 #burger {
   height: 5rem;
 }

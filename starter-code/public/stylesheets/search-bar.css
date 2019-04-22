@@ -1,14 +1,21 @@
 #search-bar {
   position: sticky;
-  top: 4.2rem;
+  top: 5rem;
   background-color: whitesmoke;
-  box-shadow: 0 4px 6px -6px;
+  margin: 0;
 }
-/* .search {
-  max-width: 100%;
-  
-} */
 
-.column.is-two-thirds {
-  padding-bottom: 0;
+#input-search {
+  font-family: "Poiret One", cursive;
 }
+#input-search:active {
+  font-family: "Poiret One", cursive;
+}
+
+[placeholder]:focus::-webkit-input-placeholder {
+  color: transparent;
+}
+
+/* #input-search:focus {
+  outline: none;
+} */
