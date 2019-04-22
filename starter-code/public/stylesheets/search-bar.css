@@ -1,0 +1,14 @@
+#search-bar {
+  position: sticky;
+  top: 4.2rem;
+  background-color: whitesmoke;
+  box-shadow: 0 4px 6px -6px;
+}
+/* .search {
+  max-width: 100%;
+  
+} */
+
+.column.is-two-thirds {
+  padding-bottom: 0;
+}

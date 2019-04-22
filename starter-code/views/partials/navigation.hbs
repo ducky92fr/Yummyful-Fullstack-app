@@ -1,6 +1,6 @@
-<nav class="navbar is-fixed-top header" role="navigation" aria-label="main navigation">
+<nav class="navbar is-fixed-top header is-mobile" role="navigation" aria-label="main navigation">
   <div class="navbar-brand" id="navbar-brand">
-    <a class="navbar-item" id="navbar-item" href="/">
+    <a class="navbar-item" href="/">
       <img src="../logo.png" id="logo" width="200" height="180">
     </a>
 
@@ -11,7 +11,6 @@
       <span aria-hidden="true"></span>
     </a>
   </div>
-  {{>search_bar}}
   <div id="navbarBasicExample" class="navbar-menu">
     <div class="navbar-start">
       <a class="navbar-item" href="/home">
@@ -26,7 +25,7 @@
     </div>
     {{#if login}}
     <div class="navbar-item has-dropdown is-hoverable">
-      <a class="navbar-link" href="/user">
+      <a class="navbar-link " href="/user">
         My profile
       </a>
       <div class="navbar-dropdown">
