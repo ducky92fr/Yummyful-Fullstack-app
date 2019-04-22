@@ -19,18 +19,15 @@ h1 {
 
 .recipes-container {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(25rem, 1fr));
-  grid-template-rows: repeat(3, 1fr);
-  margin: 100px 30px;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  /* grid-template-rows: repeat(3, 1fr); */
+  grid-gap: 30px;
+  max-width: 960px;
+  margin: 0 auto 30px;
+  text-align: center;
 }
-
-.recipe {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: flex-start;
-  height: 25rem;
-  font-size: 1.7rem;
-  margin: 1rem;
-  border: 0.1rem solid black;
+.recipe > img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
 }
