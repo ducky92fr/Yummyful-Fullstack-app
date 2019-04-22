@@ -1,0 +1,16 @@
+/* .user-header{
+  position:relative;
+  top: 7rem;
+  display:flex;
+  background-color: aquamarine;
+  justify-content: space-between
+}*/
+
+#user-header{
+  position:relative;
+  top: 7rem
+}
+
+#left-column{
+  min-width: 5rem;
+}
