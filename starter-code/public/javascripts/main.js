@@ -23,3 +23,21 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
 });
+
+
+
+
+
+
+function toggleLikeBtn(){
+  const checkBtn = document.querySelector('.recipe__love use').getAttribute("href")
+  const iconString = checkBtn.includes("outlined") ? 'icon-heart' : 'icon-heart-outlined';
+  document.querySelector('.recipe__love use').setAttribute('href', `../icons.svg#${iconString}`);
+  // icons.svg#icon-heart-outlined
+};
+
+
+const btnLike = document.querySelectorAll(".recipe__love")
+for(let i = 0; i< btnLike.length;i++){
+  btnLike[i].onclick = toggleLikeBtn
+}

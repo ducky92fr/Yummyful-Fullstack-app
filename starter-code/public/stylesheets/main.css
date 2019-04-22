@@ -31,3 +31,50 @@ h1 {
   height: 200px;
   object-fit: cover;
 }
+
+
+.recipe {
+  position: relative;
+  height: 200px
+}
+.details-recipe{
+  display:flex;
+  justify-content: space-between
+}
+
+
+.type-dish{
+  position: absolute;
+  color : white;
+  font-weight: bold;
+  bottom: 0px;
+  width: 35%;
+  padding: 0.5rem;
+  background-color: rgba(0,0,0,0.6);
+}
+
+
+.recipe__love {
+  background-image: linear-gradient(to right bottom, rgb(236, 231, 216), rgb(245, 239, 238));
+  border-radius: 50%;
+  border: none;
+  cursor: pointer;
+  height: 2.5rem;
+  width: 2.5rem;
+  margin-left: auto;
+  transition: all .2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  top:2px;
+  right: 2px;
+ }
+.recipe__love:hover {
+    transform: scale(1.07); }
+.recipe__love:focus {
+    outline: none; }
+.recipe__love svg {
+    height: 2.75rem;
+    width: 2.75rem;
+    fill: rgb(214, 36, 36); }
