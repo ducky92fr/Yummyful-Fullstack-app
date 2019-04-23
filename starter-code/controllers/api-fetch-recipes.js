@@ -11,7 +11,7 @@ exports.searchRecipes = (req, res, next) => {
         { ingredients: { $regex: ing } }
       ]
     },
-    "title type duration"
+    "title type duration imageURL" //filtre qui permet de voir les caractéristiques qui vont s'afficher
   ).then(result => {
     const newResult = {
       title: result.title

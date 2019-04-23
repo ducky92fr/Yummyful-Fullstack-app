@@ -16,19 +16,21 @@
 </div> --}}
 
 <div class="columns is-centered is-mobile" id="search-bar">
-    <div class="column is-two-thirds">
-        <form class="search">
+    <div class="column is-half">
+        <form id="form-search">
             <div class="field">
                 <p class="control has-icons-left">
-                    <input class="input" type="search" placeholder="Search some healthy recipes"
+                    <input class="input" placeholder="Search some healthy recipes"
                         {{!-- onfocus="this.placeholder=''" onblur=" this.placeholder='Search some healthy recipes'" --}}
                         id="input-search">
-                    <span class="icon is-small is-left">
+                    {{!-- <span class="icon is-small is-left">
                         <i class="fas fa-search"></i>
-                    </span>
-                    <button id="btn-search">Search</button>
+                    </span> --}}
                 </p>
             </div>
         </form>
     </div>
+    <button class="btn" id="btn-search"><i class="fas fa-search fa-2x"></i>
+
+    </button>
 </div>

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -13,12 +14,16 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.4/css/bulma.min.css">
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
     integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.min.js"></script>
   <script src="/javascripts/main.js" type="module"></script>
+  <script src="/javascripts/search-recipes.js" type="module"></script>
 </head>
+
 <body>
   {{>navigation}}
   {{>search_bar}}
   {{{body}}}
   {{!-- il faut 3 {{{}}} et non 2 sinon ça imprime ce qu'il y a dans le home (inclu <h1>......). Ici body est un marker, c'est pas le nom d'un fichier hbs. Ca veut dire que ton body est à ce niveau là. Donc tous les fichier hbs nécessaires devront être mis en-dessous --}}
 </body>
+
 </html>

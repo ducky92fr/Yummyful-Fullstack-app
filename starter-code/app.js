@@ -6,6 +6,7 @@ const hbs = require("hbs");
 const hbsutils = require("hbs-utils")(hbs);
 const mongoose = require("mongoose");
 const app = express();
+const axios = require("axios");
 
 const homePageRoutes = require("./routes/homepage");
 const userPageRoutes = require("./routes/user");

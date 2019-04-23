@@ -21,7 +21,7 @@ h1 {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
   /* grid-template-rows: repeat(3, 1fr); */
-  grid-gap: 30px;
+  grid-gap: 70px 20px;
   max-width: 960px;
   margin: 0 auto 30px;
   text-align: center;
@@ -81,4 +81,35 @@ h1 {
   height: 2.75rem;
   width: 2.75rem;
   fill: rgb(214, 36, 36);
+}
+
+.recipe-details {
+  display: flex;
+  flex-direction: row;
+  height: 3rem;
+
+  justify-content: space-between;
+  align-items: center;
+}
+
+.recipe-name {
+  font-size: 1rem;
+  font-weight: 1rem;
+  width: 300px;
+}
+
+.duration-column {
+  display: block;
+  border: none;
+  height: 3rem;
+}
+
+.duration-column svg {
+  height: 1.25rem;
+  width: 1.25rem;
+  fill: rgb(214, 116, 36);
+}
+
+.duration {
+  font-size: 0.8rem;
 }

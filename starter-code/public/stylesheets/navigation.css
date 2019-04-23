@@ -2,8 +2,17 @@
   box-shadow: 0 4px 6px -6px;
 }
 
+.navbar {
+  height: 4rem;
+}
+
 #navbar-brand {
-  height: 5rem;
+  height: 4rem;
+}
+
+a.navbar-item {
+  padding-top: 0;
+  padding-bottom: 0;
 }
 
 #logo {

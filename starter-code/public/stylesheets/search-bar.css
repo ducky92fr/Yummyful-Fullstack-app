@@ -1,6 +1,6 @@
 #search-bar {
   position: sticky;
-  top: 5rem;
+  top: 4rem;
   background-color: whitesmoke;
   margin: 0;
   z-index: 1;
@@ -9,6 +9,8 @@
 #input-search {
   font-family: "Poiret One", cursive;
   /* width: 40rem; */
+  padding-left: 1rem;
+  border-radius: 1rem;
 }
 #input-search:active {
   font-family: "Poiret One", cursive;
@@ -16,6 +18,33 @@
 
 [placeholder]:focus::-webkit-input-placeholder {
   color: transparent;
+}
+
+.columns {
+  display: flex;
+  flex-direction: row;
+}
+
+#btn-search {
+  height: 2.3rem;
+  margin-top: 0.7rem;
+  margin-left: 0;
+  background-color: rgb(46, 104, 94);
+  cursor: pointer;
+  width: 2.75rem;
+  border-radius: 1rem;
+}
+
+#btn-search:hover {
+  /* .............;; */
+}
+
+.column.is-half {
+  padding-right: 0;
+}
+
+.fas {
+  color: white;
 }
 
 /* #input-search:focus {
