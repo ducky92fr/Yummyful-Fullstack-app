@@ -9,6 +9,7 @@ const app = express();
 
 const homePageRoutes = require("./routes/homepage");
 const userPageRoutes = require("./routes/user");
+const apiRecipes = require("./routes/api-fetch-recipes");
 
 // Middleware Setup
 app.use(bodyParser.json());
@@ -26,10 +27,11 @@ hbsutils.registerWatchedPartials(__dirname + "/views/partials");
 
 app.use(homePageRoutes);
 app.use(userPageRoutes);
+app.use("/api", apiRecipes);
 
 mongoose
   .connect(
-    "mongodb+srv://ducky:ducbeo92@cluster0-owbdv.mongodb.net/shop?retryWrites=true",
+    "mongodb+srv://ducky:ducbeo92@cluster0-owbdv.mongodb.net/Project2?retryWrites=true",
     { useNewUrlParser: true }
   )
   .then(() => {
