@@ -2,7 +2,7 @@ const Recipes = require("../models/recipe.js");
 
 //for Seach bar, input can be ingredient, title or type of dish(main, post-training....)
 exports.searchRecipes = (req, res, next) => {
-  const ing = req.query.q;
+  const ing = req.query.q.toLowerCase();
   Recipes.find(
     {
       $or: [
