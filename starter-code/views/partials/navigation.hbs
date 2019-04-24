@@ -15,12 +15,6 @@
       <a class="navbar-item" href="/home">
         Home
       </a>
-      <a class="navbar-item">
-        Recipes
-      </a>
-      <a class="navbar-item" href="/user">
-        Your Recipes
-      </a>
     </div>
     {{#if login}}
     <div class="navbar-item has-dropdown is-hoverable">
@@ -42,10 +36,10 @@
         Connection
       </a>
       <div class="navbar-dropdown">
-        <a class="navbar-item login">
+        <a class="navbar-item login " href="/login" id="dropdown-element1">
           Login
         </a>
-        <a class="navbar-item signup">
+        <a class="navbar-item signup " href="/signup" id="dropdown-element2">
           Signup
         </a>
       </div>

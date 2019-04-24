@@ -12,12 +12,17 @@ exports.searchRecipes = (req, res, next) => {
       ]
     },
     "title type duration imageURL" //filtre qui permet de voir les caractéristiques qui vont s'afficher
-  ).then(result => {
-    const newResult = {
-      title: result.title
-    };
-    res.status(200).json(result);
-  });
+  )
+    .then(result => {
+      if (req.path === "/searchapi") {
+        return res.status(200).json(result);
+      } else {
+        res.render("home.hbs");
+      }
+    })
+    .catch(err => {
+      console.log(err);
+    });
 };
 
 //for get Recipe, this one gonna display the details for selected recipe

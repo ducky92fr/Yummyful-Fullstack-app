@@ -1,6 +1,21 @@
-<div class="modal" id="login-form">
+<h1 id="signup-page">Log in</h1>
+
+<form action="/login" method="POST" class="form-container">
+
+  <label for="identif">Username</label>
+  <input type="text" name="username" class="username" required>
+
+  <label for="password">Password</label>
+  <input type="password" name="password" class="password" required>
+
+  <input class="account-btn" type="submit" value="Log in">
+
+</form>
+
+{{!-- <div class="modal" id="login-form">
   <div class="modal-background" id="login-background"></div>
   <div class="modal-content">
+    <form action="/login" method="POST"></form>
     <div class="field">
       <p class="control has-icons-left has-icons-right">
         <input class="input" type="email" placeholder="Username or Email">
@@ -27,6 +42,7 @@
         </button>
       </p>
     </div>
+    </form>
   </div>
   <button class="modal-close is-large" id="login-close" aria-label="close"></button>
-</div>
+</div> --}}
