@@ -1,14 +1,20 @@
 <main>
-<h1 id="signup-page">Log in</h1>
-<div>{{errorMessage}}</div>
-<form action="/login" method="POST" class="form-container">
+  <h1 id="signup-page">Log in</h1>
 
-  <label for="identif">Email</label>
-  <input type="text" name="email" class="username" required>
+  <form action="/login" method="POST" class="form-container">
 
-  <label for="password">Password</label>
-  <input type="password" name="password" class="password" required>
+    <label for="identif">Email</label>
+    <input type="text" name="email" class="username" required>
 
-  <button class="account-btn" type="submit">Login</button>
-</form>
+    <label for="password">Password</label>
+    <input type="password" name="password" class="password" required>
+
+    <button class="account-btn" type="submit">Log in</button>
+
+    <div class="error-message">{{errorMessage}}</div>
+    <p class="account-message">
+      Don't have an account?
+      <a href="/signup">Sign up</a>
+    </p>
+  </form>
 </main>

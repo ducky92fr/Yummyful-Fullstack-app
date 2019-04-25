@@ -6,7 +6,7 @@
 
 #search-bar {
   position: sticky;
-  top: 4rem;
+  top: 8.5vh;
   background-color: whitesmoke;
   margin: 0;
   z-index: 1;
