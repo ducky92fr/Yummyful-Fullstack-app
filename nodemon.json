@@ -1,6 +1,6 @@
 {
     "env": {
-        "MONGO_USER": "ducky",
+        "MONGO_USER": "duckytest",
         "MONGO_PASSWORD": "ducbeo92",
         "MONGO_DEFAULT_DATABASE": "Project2",
         "SITE_URL": "http://localhost:3000"
