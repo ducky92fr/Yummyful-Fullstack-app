@@ -1,0 +1,41 @@
+#signup-page {
+  margin-top: 5rem;
+  margin-bottom: 2rem;
+  text-align: center;
+  font-size: 2rem;
+  font-weight: bolder;
+}
+
+.form-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.25rem;
+}
+
+.email,
+.username,
+.password,
+.account-btn {
+  font-family: "Poiret One", cursive;
+  font-size: 1.25rem;
+  margin-bottom: 1rem;
+  padding: 0.5rem;
+  border-radius: 1rem;
+  border: solid 0.1rem grey;
+}
+
+.account-btn {
+  font-weight: bolder;
+  cursor: pointer;
+  border: rgb(190, 226, 60) solid;
+}
+
+.account-btn:hover {
+  font-weight: bolder;
+  cursor: pointer;
+  background-color: rgb(46, 104, 94);
+  border: rgb(46, 104, 94) solid;
+  color: white;
+}

@@ -1,0 +1,126 @@
+@import url("https://fonts.googleapis.com/css?family=Poiret+One");
+
+* {
+  margin: 0;
+  padding: 0;
+  font-family: "Poiret One", cursive;
+  font-weight: bolder;
+}
+
+*:focus {
+  outline: none;
+}
+
+main {
+  margin: 7rem auto;
+}
+
+h1 {
+  text-align: center;
+  font-size: 2rem;
+  margin: 0;
+}
+
+.recipes-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  /* grid-template-rows: repeat(3, 1fr); */
+  grid-gap: 70px 20px;
+  max-width: 960px;
+  margin: 0 auto 30px;
+  text-align: center;
+}
+.recipe > img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+}
+
+.image-grid {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+}
+
+.recipe {
+  position: relative;
+  height: 200px;
+}
+.details-recipe {
+  display: flex;
+  justify-content: space-between;
+}
+
+.type-dish {
+  position: absolute;
+  color: white;
+  font-weight: bold;
+  bottom: 0px;
+  width: 35%;
+  padding: 0.5rem;
+  background-color: rgba(0, 0, 0, 0.6);
+}
+
+.recipe__love {
+  background-image: linear-gradient(
+    to right bottom,
+    rgb(236, 231, 216),
+    rgb(245, 239, 238)
+  );
+  border-radius: 50%;
+  border: none;
+  cursor: pointer;
+  height: 2.5rem;
+  width: 2.5rem;
+  margin-left: auto;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  top: 2px;
+  right: 2px;
+}
+.recipe__love:hover {
+  transform: scale(1.07);
+}
+.recipe__love:focus {
+  outline: none;
+}
+.recipe__love svg {
+  height: 2.75rem;
+  width: 2.75rem;
+  fill: rgb(214, 36, 36);
+}
+
+.recipe-details {
+  display: flex;
+  flex-direction: row;
+  height: 3rem;
+
+  justify-content: space-between;
+  align-items: center;
+}
+
+.recipe-name {
+  font-size: 1rem;
+  font-weight: 1rem;
+  min-width: 270px;
+  color: black;
+}
+
+.duration-column {
+  display: block;
+  border: none;
+  height: 3rem;
+}
+
+.duration-column svg {
+  height: 1.25rem;
+  width: 1.25rem;
+  fill: rgb(214, 116, 36);
+}
+
+.duration {
+  font-size: 0.8rem;
+}

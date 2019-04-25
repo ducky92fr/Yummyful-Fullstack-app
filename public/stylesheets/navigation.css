@@ -1,0 +1,47 @@
+.header {
+  box-shadow: 0 4px 6px -6px;
+}
+
+.navbar {
+  height: 4rem;
+}
+
+#navbar-brand {
+  height: 4rem;
+}
+
+a.navbar-item {
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+  font-size: 1.25rem;
+}
+
+#logo {
+  max-height: 100%;
+  max-width: 100%;
+}
+
+#connection-menu {
+  background-color: rgb(190, 226, 60);
+  border-radius: 1rem;
+  margin: 1rem;
+  color: white;
+  font-size: 1.25rem;
+}
+
+#connection-menu:hover {
+  background-color: rgb(160, 190, 52);
+  border-radius: 1rem;
+  margin: 1rem;
+}
+
+#burger {
+  height: 4rem;
+}
+
+#dropdown-element1,
+#dropdown-element2 {
+  font-size: 1rem;
+}
