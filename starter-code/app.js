@@ -1,3 +1,4 @@
+require("dotenv").config();
 const bodyParser = require("body-parser");
 const express = require("express");
 const hbs = require("hbs");
@@ -6,7 +7,8 @@ const mongoose = require("mongoose");
 const axios = require("axios");
 const session =require('express-session')
 const flash = require('connect-flash')
-
+const favicon = require("serve-favicon")
+const path = require("path")
 const MongoDBStore = require("connect-mongodb-session")(session)
 
 const MONGODB_URI = "mongodb+srv://ducky:ducbeo92@cluster0-owbdv.mongodb.net/Project2?retryWrites=true"
@@ -39,7 +41,8 @@ hbsutils.registerWatchedPartials(__dirname + "/views/partials");
 // Middleware Setup
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
-app.use(express.static(__dirname + "/public"));
+app.use(express.static(path.join(__dirname, "/public")));
+app.use(favicon(path.join(__dirname,"public","images","favicon.ico")))
 app.use(session({
   secret:process.env.SESSION_SECRET,
   resave:false, //the session will not be saved on every request that is done.Save only there is something change
