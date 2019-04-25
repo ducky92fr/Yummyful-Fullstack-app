@@ -88,6 +88,7 @@ function fetchDataURL() {
   const valueSearch = window.location.search.split("=")[1];
   console.log(valueSearch)
   if (valueSearch) {
+    document.getElementById("imgRan").innerHTML=""
     const valueCamelCase =
       valueSearch.charAt(0).toUpperCase() + valueSearch.slice(1);
     axios

@@ -14,7 +14,6 @@ exports.searchFavorite = (req, res, next) => {
     });
 };
 
-//for get Recipe, this one gonna display the details for selected recipe
 exports.getFavorite = (req, res, next) => {
   const id = req.query.rID;
   Recipes.findOne({ _id: id })
@@ -25,15 +24,19 @@ exports.getFavorite = (req, res, next) => {
 
 exports.createFavorite = (req,res,next) => {
   const id = req.query.rID
-  console.log(id)
+  // req.session.user._id
   Favorite.findOne({userId : "5cc0f51eddb6e616eb048416"})
   .then(result =>{
     if(result){
-      console.log(result)
+      const index = result.favorite.findIndex(el=> {el.toString() === id.toString()})
+      console.log(index)
+      index > -1 ? result.favorite.splice(index,1):result.favorite.push(id)
+      console.log(result.favorite)
+  
     }
     else {
       const favorite = new Favorite({
-        userId:"5cc0f51eddb6e616eb048416",
+        userId:req.session.user._id,
         favorite :id
       })
       favorite.save()
