@@ -18,7 +18,7 @@ exports.postLogin = (req, res, next) => {
   const password = req.body.password;
   User.findOne({ email: email }).then(user => {
     if (!user) {
-      req.flash("error", "You don't have an account");
+      req.flash("error", "Invalid Email");
       return req.session.save(err => {
         res.redirect("/login");
       });

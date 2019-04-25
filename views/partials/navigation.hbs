@@ -15,6 +15,9 @@
       <a class="navbar-item" href="/home">
         Home
       </a>
+      <a class="navbar-item" href="/user">
+        My recipes
+      </a>
     </div>
     {{#if isAuthenticated}}
     <div class="navbar-item has-dropdown is-hoverable">
@@ -22,9 +25,9 @@
         My profile
       </a>
       <div class="navbar-dropdown">
-        <a class="navbar-item dropdown-element" href="/" id="dropdown-element3">
+        {{!-- <a class="navbar-item dropdown-element" href="/" id="dropdown-element3">
           My recipes
-        </a>
+        </a> --}}
         <form action="/logout" method="POST">
           <button type="submit" id="logout-btn">
             Logout
