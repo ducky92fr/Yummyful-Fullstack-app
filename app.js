@@ -37,6 +37,13 @@ hbsutils.registerWatchedPartials(__dirname + "/views/partials");
 
 
 // Middleware Setup
+app.use((req, res, next) => {
+  if (req.path === '/favicon.ico') {
+    console.log('Favicon blocked...')
+    return res.send('Blocking favicon to not create more sessions... Implement code for handling favicons.')
+  }
+  next();
+});
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, "/public")));
