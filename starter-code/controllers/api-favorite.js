@@ -1,9 +1,9 @@
-const Recipes = require("../models/recipe.js");
+const Favorite = require("../models/favorite.js");
 
-//for Seach bar, input can be ingredient, title or type of dish(main, post-training....)
-exports.searchRecipes = (req, res, next) => {
+
+exports.searchFavorite = (req, res, next) => {
   const ing = req.query.q.toLowerCase();
-  Recipes.find(
+  Favorite.find(
     {
       $or: [
         { type: { $regex: ing, $options: "i" } },
@@ -30,9 +30,10 @@ exports.getRecipe = (req, res, next) => {
   const id = req.query.rID;
   Recipes.findOne({ _id: id })
   .then(result => {
+    if(req.path ==="/getapi"){
     res.status(200).json(result);
-  })
-  .catch(err => {
-    console.log(err)
+    } else {
+      
+    }
   });
 };

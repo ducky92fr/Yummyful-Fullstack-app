@@ -1,11 +1,6 @@
 exports.getUserPage = (req, res, next) => {
   res.render("user.hbs", {
-    login: true
+    isAuthenticated: req.session.isLoggedIn
   });
 };
 
-exports.logoutPage = (req, res, next) => {
-  res.render("home.hbs", {
-    login: false
-  });
-};
