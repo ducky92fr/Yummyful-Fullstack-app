@@ -39,7 +39,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(__dirname + "/public"));
 app.use(session({
-  secret:'susan&duc',
+  secret:process.env.SESSION_SECRET,
   resave:false, //the session will not be saved on every request that is done.Save only there is something change
   saveUninitialized:false,
   store:store
@@ -59,7 +59,7 @@ mongoose
   .connect(MONGODB_URI,{ useNewUrlParser: true })
   .then(() => {
     console.log("Connected to Mongo");
-    app.listen(3000);
+    app.listen(process.env.PORT);
   })
   .catch(err => {
     console.log("err");
