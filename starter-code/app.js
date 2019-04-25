@@ -21,6 +21,7 @@ const userPageRoutes = require("./routes/user");
 const apiRecipes = require("./routes/api-fetch-recipes-axios");
 const recipesRoutes = require("./routes/recipes");
 const authRoutes = require("./routes/auth-routes");
+const favoriteRoutes = require("./routes/api-fetch-favorite-axios")
 
 
 // Express View engine setup
@@ -49,14 +50,9 @@ app.use(flash())
 app.use(homePageRoutes);
 app.use(userPageRoutes);
 app.use("/api", apiRecipes);
+app.use("/api",favoriteRoutes)
 app.use(recipesRoutes);
 app.use(authRoutes)
-
-
-
-
-
-
 
 
 mongoose

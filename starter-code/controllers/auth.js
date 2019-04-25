@@ -17,26 +17,27 @@ exports.postLogin = (req, res, next) => {
   .then(user =>{
     if(!user){
       req.flash('error','Invalid email or password.')
-      return req.session.save(err =>{
-        res.redirect('/login')
-      })
+      return req.session.save(err => res.redirect('/login'))
     }
     bcrypt
     .compare(password,user.password)
     .then(doMatch =>{
       if(doMatch){
         req.session.isLoggedIn=true;
-        req.session.user=user;
+        req.session.user=user._id;
+        console.log(req.session.user)
          return req.session.save(err =>{
           console.log(err)
           return res.redirect('/user')
       })
       }
+      console.log("here1")
       res.redirect('/login')
     })
 
   .catch(err =>{
       console.log(err);
+      console.log("here")
       res.redirect('/login')
     })
     

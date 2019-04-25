@@ -21,7 +21,7 @@ function fillMarkup(data, index) {
            <img class="image-grid" idRecipe=${id} src=${image} alt="">
            <h1 class="type-dish">${type}</h1>
            <button class="recipe__love">
-               <svg class="header__likes">
+               <svg class="header__likes" idRecipe=${id}>
                    <use href="../icons.svg#icon-heart-outlined"></use>
                </svg>
            </button>
@@ -86,6 +86,7 @@ function searchRecipes(e) {
 
 function fetchDataURL() {
   const valueSearch = window.location.search.split("=")[1];
+  console.log(valueSearch)
   if (valueSearch) {
     const valueCamelCase =
       valueSearch.charAt(0).toUpperCase() + valueSearch.slice(1);
@@ -159,7 +160,6 @@ function getAllRecipeDetails(e) {
          <div class ="has-text-white">Instructions: ${instructions}</div>
       </div>
     </div>
-
    `;
       document
         .getElementById("modal-recipe")
@@ -186,7 +186,6 @@ document.querySelector(".modal-background").onclick = toggleRecipeDetails;
 document.querySelector(".modal-close").onclick = toggleRecipeDetails;
 
 function toggleLikeBtn(event) {
-  console.log("hehe");
   let elementTarget = event.target.closest(".header__likes");
   let html = elementTarget.innerHTML;
   if (html.includes("icon-heart-outlined")) {
@@ -199,5 +198,5 @@ function toggleLikeBtn(event) {
 }
 
 window.onscroll = scrollPageController;
-window.onpopstate = fetchDataURL;
+window.onpopstate = fetchDataURL
 window.onload = fetchDataURL;

@@ -1,4 +1,5 @@
 const Recipes = require("../models/recipe.js");
+const homepageControllers = require("../controllers/homepage.js")
 
 //for Seach bar, input can be ingredient, title or type of dish(main, post-training....)
 exports.searchRecipes = (req, res, next) => {
@@ -17,7 +18,7 @@ exports.searchRecipes = (req, res, next) => {
       if (req.path === "/searchapi") {
         return res.status(200).json(result);
       } else {
-        res.render("home.hbs");
+        homepageControllers.renderHomePageConditionnal(req,res,next)
       }
     })
     .catch(err => {

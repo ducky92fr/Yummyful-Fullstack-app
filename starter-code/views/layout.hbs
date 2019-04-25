@@ -17,7 +17,10 @@
     integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.min.js"></script>
   <script src="/javascripts/main.js" type="module"></script>
-  <script src="/javascripts/search-recipes.js" type="module"></script>
+   {{#each scripts}}
+    <script src="/javascripts/{{this}}" type="module"></script>
+    {{/each}}
+  {{!-- <script src="/javascripts/search-recipes.js" type="module"></script> --}}
 </head>
 
 <body>

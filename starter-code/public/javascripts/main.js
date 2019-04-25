@@ -24,23 +24,23 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 });
 
-//Button Like
-function toggleLikeBtn(event) {
-  console.log("hehe");
-  let elementTarget = event.target.closest(".header__likes");
-  let html = elementTarget.innerHTML;
-  if (html.includes("icon-heart-outlined")) {
-    html = html.replace("icon-heart-outlined", "icon-heart");
-    elementTarget.innerHTML = html;
-  } else {
-    html = html.replace("icon-heart", "icon-heart-outlined");
-    elementTarget.innerHTML = html;
-  }
-}
+// //Button Like
+// function toggleLikeBtn(event) {
+//   console.log("hehe");
+//   let elementTarget = event.target.closest(".header__likes");
+//   let html = elementTarget.innerHTML;
+//   if (html.includes("icon-heart-outlined")) {
+//     html = html.replace("icon-heart-outlined", "icon-heart");
+//     elementTarget.innerHTML = html;
+//   } else {
+//     html = html.replace("icon-heart", "icon-heart-outlined");
+//     elementTarget.innerHTML = html;
+//   }
+// }
 
-for (let i = 0; i < btnLike.length; i++) {
-  btnLike[i].onclick = toggleLikeBtn;
-}
+// for (let i = 0; i < btnLike.length; i++) {
+//   btnLike[i].onclick = toggleLikeBtn;
+// }
 
 // //Login Modal On/Off
 
