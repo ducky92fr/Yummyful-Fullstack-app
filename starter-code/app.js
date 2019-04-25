@@ -11,6 +11,8 @@ const MongoDBStore = require("connect-mongodb-session")(session)
 
 const MONGODB_URI = "mongodb+srv://ducky:ducbeo92@cluster0-owbdv.mongodb.net/Project2?retryWrites=true"
 const app = express();
+app.locals.site_url = process.env.SITE_URL
+
 const store = new MongoDBStore({
   uri:MONGODB_URI,
   collection:'sessions'
@@ -59,7 +61,7 @@ mongoose
   .connect(MONGODB_URI,{ useNewUrlParser: true })
   .then(() => {
     console.log("Connected to Mongo");
-    app.listen(process.env.PORT);
+    app.listen(process.env.PORT || 3000);
   })
   .catch(err => {
     console.log("err");
