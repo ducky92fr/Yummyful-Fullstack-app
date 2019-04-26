@@ -65,10 +65,10 @@ function toggleBackgroundImageDisplay() {
     randomImg.classList.add("img-hidden");
     randomImgContainer.classList.add("random-img-container-hidden");
   } else {
-    randomImg.classList.remove("img-hidden");
-    randomImgContainer.classList.remove("random-img-container-hidden");
-    randomImg.classList.add("img-not-hidden");
-    randomImgContainer.classList.add("random-img-container-not-hidden");
+    // randomImg.classList.remove("img-hidden");
+    // randomImgContainer.classList.remove("random-img-container-hidden");
+    // randomImg.classList.add("img-not-hidden");
+    // randomImgContainer.classList.add("random-img-container-not-hidden");
   }
 }
 
