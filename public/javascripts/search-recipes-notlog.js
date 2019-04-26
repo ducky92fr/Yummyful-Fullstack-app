@@ -55,12 +55,29 @@ function displayResults(data) {
   deltaElement = data.length - 9;
   searchInput.value = "";
 }
+
+function toggleBackgroundImageDisplay() {
+  const randomImg = document.getElementById("random-image");
+  const randomImgContainer = document.getElementById("random-img-container");
+  if (randomImg.classList.contains("img-not-hidden")) {
+    randomImg.classList.remove("img-not-hidden");
+    randomImgContainer.classList.remove("random-img-container-not-hidden");
+    randomImg.classList.add("img-hidden");
+    randomImgContainer.classList.add("random-img-container-hidden");
+  } else {
+    randomImg.classList.remove("img-hidden");
+    randomImgContainer.classList.remove("random-img-container-hidden");
+    randomImg.classList.add("img-not-hidden");
+    randomImgContainer.classList.add("random-img-container-not-hidden");
+  }
+}
+
 function searchRecipes(e) {
   e.preventDefault();
   axios
     .get(`${url}/api/searchapi?q=${searchInput.value}`)
     .then(result => {
-      console.log(result)
+      console.log(result);
       titleSearch.innerText = "";
       const valueCamelCase =
         searchInput.value.charAt(0).toUpperCase() + searchInput.value.slice(1);
@@ -73,6 +90,7 @@ function searchRecipes(e) {
         null,
         `/recipes/search?q=${searchInput.value}`
       );
+      toggleBackgroundImageDisplay();
       displayResults(arrayResult);
     })
     .catch(error => {
@@ -88,7 +106,7 @@ function fetchDataURL() {
     axios
       .get(`${url}/api/searchapi?q=${valueCamelCase}`)
       .then(result => {
-        console.log(result)
+        console.log(result);
         titleSearch.innerText = "";
         result.data.recipes.length > 0
           ? (titleSearch.innerText = valueCamelCase)
@@ -108,7 +126,7 @@ formSearch.onsubmit = searchRecipes;
 function scrollPageController() {
   const contentHeight = wrap.offsetHeight;
   let yOffset = window.pageYOffset;
-  let y = yOffset + window.innerHeight-350;
+  let y = yOffset + window.innerHeight - 350;
   if (y >= contentHeight && deltaElement > 0) {
     let loopLength;
     console.log(deltaElement);
@@ -179,8 +197,6 @@ function toggleRecipeDetails() {
 
 document.querySelector(".modal-background").onclick = toggleRecipeDetails;
 document.querySelector(".modal-close").onclick = toggleRecipeDetails;
-
-
 
 window.onscroll = scrollPageController;
 window.onpopstate = fetchDataURL;

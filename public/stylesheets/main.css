@@ -11,8 +11,28 @@
   outline: none;
 }
 
+.random-img-container-not-hidden {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 40rem;
+}
+.random-img-container-hidden {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 0;
+}
+
+.img-not-hidden {
+  width: 50rem;
+}
+.img-hidden {
+  width: 0;
+}
+
 main {
-  margin: 7rem auto;
+  margin: 5rem auto;
 }
 
 h1 {
@@ -125,11 +145,10 @@ h1 {
   font-size: 0.8rem;
 }
 
-
-.heart{
-  color:red
+.heart {
+  color: red;
 }
 
-.heartgreen{
-  color:blue;
+.heartgreen {
+  color: blue;
 }

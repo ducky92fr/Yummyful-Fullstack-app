@@ -11,19 +11,19 @@ let arrayFavorite = [];
 let imageClicked;
 let btnLike;
 
-function fillMarkup(data,arrayFavorite, index) {
+function fillMarkup(data, arrayFavorite, index) {
   const image = data[index].imageURL;
   const title = data[index].title;
   const type = data[index].type;
   const id = data[index]._id;
   const duration = data[index].duration.replace(/\D/g, "").concat("", "'");
-  const isLiked = arrayFavorite.includes(id.toString())
+  const isLiked = arrayFavorite.includes(id.toString());
   const markup = `
   <div class="recipe">
            <img class="image-grid" idRecipe=${id} src=${image} alt="">
            <h1 class="type-dish">${type}</h1>
            <button class="recipe__love" idrecipebtn=${id}>
-           <i class="${isLiked ? 'heart' : ''} far fa-heart fa-2x"></i>
+           <i class="${isLiked ? "heart" : ""} far fa-heart fa-2x"></i>
            </button>
            <div class="recipe-details">
                <div class="recipe-name">${title}
@@ -38,14 +38,16 @@ function fillMarkup(data,arrayFavorite, index) {
   wrap.insertAdjacentHTML("beforeend", markup);
 }
 
-function displayResults(arrayRecipes,arrayFavorite) {
+function displayResults(arrayRecipes, arrayFavorite) {
   deltaElement = 0;
   wrap.innerHTML = "";
   let loopLength;
-  console.log("heheiii")
-  arrayRecipes.length <= 9 ? (loopLength = arrayRecipes.length) : (loopLength = 9);
+  console.log("heheiii");
+  arrayRecipes.length <= 9
+    ? (loopLength = arrayRecipes.length)
+    : (loopLength = 9);
   for (let i = 0; i < loopLength; i++) {
-    fillMarkup(arrayRecipes,arrayFavorite, i);
+    fillMarkup(arrayRecipes, arrayFavorite, i);
   }
   imageClicked = document.querySelectorAll(".image-grid");
   btnLike = document.querySelectorAll(".recipe__love");
@@ -57,12 +59,29 @@ function displayResults(arrayRecipes,arrayFavorite) {
   deltaElement = arrayRecipes.length - 9;
   searchInput.value = "";
 }
+
+function toggleBackgroundImageDisplay() {
+  const randomImg = document.getElementById("random-image");
+  const randomImgContainer = document.getElementById("random-img-container");
+  if (randomImg.classList.contains("img-not-hidden")) {
+    randomImg.classList.remove("img-not-hidden");
+    randomImgContainer.classList.remove("random-img-container-not-hidden");
+    randomImg.classList.add("img-hidden");
+    randomImgContainer.classList.add("random-img-container-hidden");
+  } else {
+    randomImg.classList.remove("img-hidden");
+    randomImgContainer.classList.remove("random-img-container-hidden");
+    randomImg.classList.add("img-not-hidden");
+    randomImgContainer.classList.add("random-img-container-not-hidden");
+  }
+}
+
 function searchRecipes(e) {
   e.preventDefault();
   axios
     .get(`${url}/api/searchapi?q=${searchInput.value}`)
     .then(result => {
-      console.log(result)
+      console.log(result);
       titleSearch.innerText = "";
       const valueCamelCase =
         searchInput.value.charAt(0).toUpperCase() + searchInput.value.slice(1);
@@ -70,13 +89,14 @@ function searchRecipes(e) {
         ? (titleSearch.innerText = `Recipes that contain: ${valueCamelCase}`)
         : (titleSearch.innerText = "No Result");
       arrayRecipes = [...result.data.recipes];
-      arrayFavorite =[...result.data.liked]
+      arrayFavorite = [...result.data.liked];
       window.history.pushState(
         null,
         null,
         `/recipes/search?q=${searchInput.value}`
       );
-      displayResults(arrayRecipes,arrayFavorite);
+      toggleBackgroundImageDisplay();
+      displayResults(arrayRecipes, arrayFavorite);
     })
     .catch(error => {
       console.log("error");
@@ -91,17 +111,17 @@ function fetchDataURL() {
     axios
       .get(`${url}/api/searchapi?q=${valueCamelCase}`)
       .then(result => {
-        console.log(result)
+        console.log(result);
         titleSearch.innerText = "";
         result.data.recipes.length > 0
           ? (titleSearch.innerText = valueCamelCase)
           : (titleSearch.innerText = "No Result");
         arrayRecipes = [...result.data.recipes];
-        console.log(arrayRecipes)
-        arrayFavorite= [...result.data.liked];
-        console.log(arrayFavorite)
-        
-        displayResults(arrayRecipes,arrayFavorite);
+        console.log(arrayRecipes);
+        arrayFavorite = [...result.data.liked];
+        console.log(arrayFavorite);
+
+        displayResults(arrayRecipes, arrayFavorite);
       })
       .catch(error => {
         console.log("error");
@@ -121,7 +141,7 @@ function scrollPageController() {
     console.log(deltaElement);
     deltaElement > 9 ? (loopLength = 9) : (loopLength = deltaElement);
     for (let i = 0; i < loopLength; i++) {
-      fillMarkup(arrayRecipes,arrayFavorite,trackLastIndex);
+      fillMarkup(arrayRecipes, arrayFavorite, trackLastIndex);
       imageClicked = document.querySelectorAll(".image-grid");
       btnLike = document.querySelectorAll(".recipe__love");
       imageClicked[trackLastIndex].onclick = getAllRecipeDetails;
@@ -189,20 +209,21 @@ document.querySelector(".modal-close").onclick = toggleRecipeDetails;
 
 function toggleLikeBtn(e) {
   const elementTarget = e.target.closest(".recipe__love");
-  const id =elementTarget.attributes.idrecipebtn.value
-  console.log(id)
-  console.dir(elementTarget)
-  const heartIcon = elementTarget.childNodes[1]
-  if(heartIcon.classList.contains('heart')){
-    heartIcon.classList.remove('heart')
-  }else{heartIcon.classList.add('heart')}
+  const id = elementTarget.attributes.idrecipebtn.value;
+  console.log(id);
+  console.dir(elementTarget);
+  const heartIcon = elementTarget.childNodes[1];
+  if (heartIcon.classList.contains("heart")) {
+    heartIcon.classList.remove("heart");
+  } else {
+    heartIcon.classList.add("heart");
+  }
   axios
-  .post(`${url}/api/favorite/addremove?rID=${id}`)
-  .then(()=>console.log("update done"))
-  .catch(err => console.log(err))
+    .post(`${url}/api/favorite/addremove?rID=${id}`)
+    .then(() => console.log("update done"))
+    .catch(err => console.log(err));
 }
 
-
 window.onscroll = scrollPageController;
-window.onpopstate = fetchDataURL
+window.onpopstate = fetchDataURL;
 window.onload = fetchDataURL;
