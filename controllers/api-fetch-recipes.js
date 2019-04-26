@@ -14,9 +14,14 @@ exports.searchRecipes = (req, res, next) => {
     },
     "title type duration imageURL" //filtre qui permet de voir les caractéristiques qui vont s'afficher
   )
-    .then(result => {
+    .then(recipes => {
+      const tmp ={
+        liked :req.session.liked,
+        recipes
+      }
       if (req.path === "/searchapi") {
-        return res.status(200).json(result);
+
+        return res.status(200).json(tmp);
       } else {
         homepageControllers.renderHomePageConditionnal(req,res,next)
       }

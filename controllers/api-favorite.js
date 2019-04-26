@@ -5,20 +5,24 @@ exports.createFavorite = (req,res,next) => {
   Favorite.findOne({userId :req.session.user._id})
   .then(result =>{
     if(result){
-      const index = result.favorite.findIndex(el=> el.toString() === id )
-      index > -1 ? result.favorite.splice(index,1):result.favorite.push(id)
-      if(result.favorite.length === 0){
+      console.log(result)
+      const index = result.recipes.findIndex(el=> el.toString() === id )
+      index > -1 ? result.recipes.splice(index,1):result.recipes.push(id)
+      if(result.recipes.length === 0){
         Favorite.findOneAndDelete({_id:result._id},err =>console.log(err))
         console.log(result._id)
       }else {
-        Favorite.findOneAndUpdate({_id:result._id},{favorite:result.favorite},err=>console.log(err))
+        Favorite.findOneAndUpdate({_id:result._id},{recipes:result.recipes},err=>{
+          console.log('update recipes done')
+          console.log(err)
+        })
       }
   
     }
     else {
       const favorite = new Favorite({
         userId:req.session.user._id,
-        favorite :id
+        recipes :id
       })
       favorite.save()
       .then(()=>console.log("succes save"))

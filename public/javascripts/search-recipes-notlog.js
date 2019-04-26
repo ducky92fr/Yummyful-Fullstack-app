@@ -42,7 +42,6 @@ function displayResults(data) {
   deltaElement = 0;
   wrap.innerHTML = "";
   let loopLength;
-
   data.length <= 9 ? (loopLength = data.length) : (loopLength = 9);
   for (let i = 0; i < loopLength; i++) {
     fillMarkup(data, i);
@@ -61,13 +60,14 @@ function searchRecipes(e) {
   axios
     .get(`${url}/api/searchapi?q=${searchInput.value}`)
     .then(result => {
+      console.log(result)
       titleSearch.innerText = "";
       const valueCamelCase =
         searchInput.value.charAt(0).toUpperCase() + searchInput.value.slice(1);
-      result.data.length > 0
+      result.data.recipes.length > 0
         ? (titleSearch.innerText = `Recipes that contain: ${valueCamelCase}`)
         : (titleSearch.innerText = "No Result");
-      arrayResult = [...result.data];
+      arrayResult = [...result.data.recipes];
       window.history.pushState(
         null,
         null,
@@ -82,18 +82,18 @@ function searchRecipes(e) {
 
 function fetchDataURL() {
   const valueSearch = window.location.search.split("=")[1];
-  console.log(valueSearch)
   if (valueSearch) {
     const valueCamelCase =
       valueSearch.charAt(0).toUpperCase() + valueSearch.slice(1);
     axios
       .get(`${url}/api/searchapi?q=${valueCamelCase}`)
       .then(result => {
+        console.log(result)
         titleSearch.innerText = "";
-        result.data.length > 0
+        result.data.recipes.length > 0
           ? (titleSearch.innerText = valueCamelCase)
           : (titleSearch.innerText = "No Result");
-        arrayResult = [...result.data];
+        arrayResult = [...result.data.recipes];
         displayResults(arrayResult);
       })
       .catch(error => {
@@ -108,7 +108,7 @@ formSearch.onsubmit = searchRecipes;
 function scrollPageController() {
   const contentHeight = wrap.offsetHeight;
   let yOffset = window.pageYOffset;
-  let y = yOffset + window.innerHeight;
+  let y = yOffset + window.innerHeight-350;
   if (y >= contentHeight && deltaElement > 0) {
     let loopLength;
     console.log(deltaElement);

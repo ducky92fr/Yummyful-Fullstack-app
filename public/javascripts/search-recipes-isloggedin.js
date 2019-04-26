@@ -60,13 +60,14 @@ function searchRecipes(e) {
   axios
     .get(`${url}/api/searchapi?q=${searchInput.value}`)
     .then(result => {
+      console.log(result)
       titleSearch.innerText = "";
       const valueCamelCase =
         searchInput.value.charAt(0).toUpperCase() + searchInput.value.slice(1);
-      result.data.length > 0
+      result.data.recipes.length > 0
         ? (titleSearch.innerText = `Recipes that contain: ${valueCamelCase}`)
         : (titleSearch.innerText = "No Result");
-      arrayResult = [...result.data];
+      arrayResult = [...result.data.recipes];
       window.history.pushState(
         null,
         null,
@@ -88,10 +89,10 @@ function fetchDataURL() {
       .get(`${url}/api/searchapi?q=${valueCamelCase}`)
       .then(result => {
         titleSearch.innerText = "";
-        result.data.length > 0
+        result.data.recipes.length > 0
           ? (titleSearch.innerText = valueCamelCase)
           : (titleSearch.innerText = "No Result");
-        arrayResult = [...result.data];
+        arrayResult = [...result.data.recipes];
         displayResults(arrayResult);
       })
       .catch(error => {

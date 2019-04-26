@@ -1,4 +1,5 @@
 const User = require('../models/user');
+const Favorite = require("../models/favorite.js");
 const bcrypt = require("bcrypt")
 exports.getLogin = (req, res, next) => {
   res.render("auth/login.hbs",{
@@ -27,16 +28,20 @@ exports.postLogin = (req, res, next) => {
       .compare(password, user.password)
       .then(doMatch => {
         if (doMatch) {
-          req.session.isLoggedIn = true;
-          req.session.user = user;
-          return req.session.save(err => {
-            console.log(err);
-            return res.redirect("/user");
-          });
-        }
+          Favorite.find({userId:user._id})
+          .then(favorite => {
+            if(favorite.length >0) {req.session.liked = [...favorite[0].recipes]}
+            req.session.isLoggedIn = true;
+            req.session.user = user;
+            return req.session.save(err => {
+              console.log("login done")
+              console.log(err);
+              return res.redirect("/user");
+            });
+          })
+        }else{
         req.flash("error", "Invalid password"); // rajouter un flash
-
-        res.redirect("/login");
+        res.redirect("/login");}
       })
 
       .catch(err => {
@@ -78,6 +83,7 @@ exports.postSignup = (req, res, next) => {
 exports.postLogout = (req, res, next) => {
   return req.session.destroy(err => {
     console.log(err);
+    console.log("logout done")
     res.redirect("/");
   });
 };
