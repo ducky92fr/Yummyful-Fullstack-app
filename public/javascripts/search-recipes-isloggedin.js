@@ -43,7 +43,6 @@ function displayResults(arrayRecipes,arrayFavorite) {
   wrap.innerHTML = "";
   let loopLength;
   console.log("heheiii")
-  console.log(arrayFavorite)
   arrayRecipes.length <= 9 ? (loopLength = arrayRecipes.length) : (loopLength = 9);
   for (let i = 0; i < loopLength; i++) {
     fillMarkup(arrayRecipes,arrayFavorite, i);
@@ -71,8 +70,7 @@ function searchRecipes(e) {
         ? (titleSearch.innerText = `Recipes that contain: ${valueCamelCase}`)
         : (titleSearch.innerText = "No Result");
       arrayRecipes = [...result.data.recipes];
-      arrayFavorite= [...result.data.liked]
-      console.log(result.data.liked)
+      arrayFavorite =[...result.data.liked]
       window.history.pushState(
         null,
         null,
@@ -98,7 +96,7 @@ function fetchDataURL() {
           ? (titleSearch.innerText = valueCamelCase)
           : (titleSearch.innerText = "No Result");
         arrayRecipes = [...result.data.recipes];
-        arrayFavorite = [...result.data.liked]
+        arrayFavorite= [...result.data.liked]
         displayResults(arrayRecipes,arrayFavorite);
       })
       .catch(error => {

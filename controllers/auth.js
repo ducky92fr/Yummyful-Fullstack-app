@@ -30,7 +30,8 @@ exports.postLogin = (req, res, next) => {
         if (doMatch) {
           Favorite.find({userId:user._id})
           .then(favorite => {
-            if(favorite.length >0) {req.session.liked = [...favorite[0].recipes]}
+            favorite.length >0 ? req.session.liked = [...favorite[0].recipes]:req.session.liked =["13431423423"]
+            console.log(req.session.liked)
             req.session.isLoggedIn = true;
             req.session.user = user;
             return req.session.save(err => {
