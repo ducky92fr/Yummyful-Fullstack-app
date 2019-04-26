@@ -17,13 +17,13 @@ function fillMarkup(data,arrayFavorite, index) {
   const type = data[index].type;
   const id = data[index]._id;
   const duration = data[index].duration.replace(/\D/g, "").concat("", "'");
-  console.log(arrayFavorite)
+  const isLiked = arrayFavorite.includes(id.toString())
   const markup = `
   <div class="recipe">
            <img class="image-grid" idRecipe=${id} src=${image} alt="">
            <h1 class="type-dish">${type}</h1>
            <button class="recipe__love" idrecipebtn=${id}>
-           <i class="far fa-heart fa-2x"></i>
+           <i class="${isLiked ? 'heart' : ''} far fa-heart fa-2x"></i>
            </button>
            <div class="recipe-details">
                <div class="recipe-name">${title}
