@@ -20,19 +20,14 @@ function fillMarkup(data, index) {
   <div class="recipe">
            <img class="image-grid" idRecipe=${id} src=${image} alt="">
            <h1 class="type-dish">${type}</h1>
-           <button class="recipe__love">
-               <svg class="header__likes" idRecipe=${id}>
-                   <use href="../icons.svg#icon-heart-outlined"></use>
-               </svg>
+           <button class="recipe__love" idrecipebtn=${id}>
+           <i class="far fa-heart fa-2x"></i>
            </button>
            <div class="recipe-details">
                <div class="recipe-name">${title}
                </div>
                <div class="duration-column">
-                   <svg class="clock-icon">
-                       <use href="../icons.svg#icon-stopwatch">
-                       </use>
-                   </svg>
+                   <i class="far fa-clock"></i>
                    <div class="duration">${duration}</div>
                </div>
            </div>
@@ -86,9 +81,7 @@ function searchRecipes(e) {
 
 function fetchDataURL() {
   const valueSearch = window.location.search.split("=")[1];
-  console.log(valueSearch)
   if (valueSearch) {
-    document.getElementById("imgRan").innerHTML=""
     const valueCamelCase =
       valueSearch.charAt(0).toUpperCase() + valueSearch.slice(1);
     axios
@@ -147,7 +140,6 @@ function getAllRecipeDetails(e) {
       const ingredients = result.data.ingredients;
       const instructions = result.data.instructions;
       const markup = `
-
       <div class="columns is-desktop " >
           <div class="column"> <img src="${image}" alt="" class="img-recipe"/></div>
           <div class="column has-text-white">Ingredients: ${ingredients}</div>
@@ -186,17 +178,21 @@ function toggleRecipeDetails() {
 document.querySelector(".modal-background").onclick = toggleRecipeDetails;
 document.querySelector(".modal-close").onclick = toggleRecipeDetails;
 
-function toggleLikeBtn(event) {
-  let elementTarget = event.target.closest(".header__likes");
-  let html = elementTarget.innerHTML;
-  if (html.includes("icon-heart-outlined")) {
-    html = html.replace("icon-heart-outlined", "icon-heart");
-    elementTarget.innerHTML = html;
-  } else {
-    html = html.replace("icon-heart", "icon-heart-outlined");
-    elementTarget.innerHTML = html;
-  }
+function toggleLikeBtn(e) {
+  const elementTarget = e.target.closest(".recipe__love");
+  const id =elementTarget.attributes.idrecipebtn.value
+  console.log(id)
+  console.dir(elementTarget)
+  const heartIcon = elementTarget.childNodes[1]
+  if(heartIcon.classList.contains('heart')){
+    heartIcon.classList.remove('heart')
+  }else{heartIcon.classList.add('heart')}
+  axios
+  .post(`${url}/api/favorite/addremove?rID=${id}`)
+  .then(()=>console.log("update done"))
+  .catch(err => console.log(err))
 }
+
 
 window.onscroll = scrollPageController;
 window.onpopstate = fetchDataURL

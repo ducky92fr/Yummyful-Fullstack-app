@@ -1,17 +1,20 @@
-
-<div class="columns is-centered is-mobile" id="user-header">
-  <div class="column is-two-fifths has-background-success">
-    <div class="columns is-gapless">
-      <div class="column is-one-fifth">
-        <figure class="image is-128x128">
-          <img class="is-rounded" src="../test.gif">
-        </figure>
-      </div>
-      <div class="column is-one-fifth">
-        <h1 class="has-text-danger has-text-left">nguyentduc92</h1>
-        <a class="button is-danger is-rounded">Edit my profile</a>
-      </div>
+<main>
+    <h1 class="title" id="title-search"></h1>
+    <div class="recipes-container" id="wrap">
+      <div class="recipe">
+           <img class="image-grid" idRecipe=${id} src=${image} alt="">
+           <h1 class="type-dish">${type}</h1>
+           <button class="recipe__love" idrecipebtn=${id}>
+           <i class="far fa-heart fa-2x"></i>
+           </button>
+           <div class="recipe-details">
+               <div class="recipe-name">${title}
+               </div>
+               <div class="duration-column">
+                   <i class="far fa-clock"></i>
+                   <div class="duration">${duration}</div>
+               </div>
+           </div>
+       </div>
     </div>
-  </div>
-</div>
-{{>grid}}
+</main>

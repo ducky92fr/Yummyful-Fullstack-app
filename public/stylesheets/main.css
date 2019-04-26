@@ -124,3 +124,12 @@ h1 {
 .duration {
   font-size: 0.8rem;
 }
+
+
+.heart{
+  color:red
+}
+
+.heartgreen{
+  color:blue;
+}

@@ -22,19 +22,14 @@ function fillMarkup(data, index) {
            <h1 class="type-dish">${type}</h1>
            <button class="recipe__love">
            <a href="/user">
-               <svg class="header__likes">
-                   <use href="../icons.svg#icon-heart-outlined"></use>
-               </svg>
-               </a>
+           <i class="far fa-heart fa-2x heartgreen"></i>
+            </a>
            </button>
            <div class="recipe-details">
                <div class="recipe-name">${title}
                </div>
                <div class="duration-column">
-                   <svg class="clock-icon">
-                       <use href="../icons.svg#icon-stopwatch">
-                       </use>
-                   </svg>
+                   <i class="far fa-clock"></i>
                    <div class="duration">${duration}</div>
                </div>
            </div>
@@ -89,7 +84,6 @@ function fetchDataURL() {
   const valueSearch = window.location.search.split("=")[1];
   console.log(valueSearch)
   if (valueSearch) {
-    document.getElementById("imgRan").innerHTML=""
     const valueCamelCase =
       valueSearch.charAt(0).toUpperCase() + valueSearch.slice(1);
     axios
