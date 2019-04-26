@@ -10,9 +10,12 @@ exports.createFavorite = (req,res,next) => {
       index > -1 ? result.recipes.splice(index,1):result.recipes.push(id)
       if(result.recipes.length === 0){
         Favorite.findOneAndDelete({_id:result._id},err =>{
-          console.log("delete recipe done")
-          console.log(err)})
-        console.log(result._id)
+          req.session.isLiked=["13431423423"]
+          req.session.save(err => {
+            console.log("delete recipe done")
+            console.log(err)})
+          console.log(result._id)
+          })
       }else {
         Favorite.findOneAndUpdate({_id:result._id},{recipes:result.recipes},err=>{
           console.log('update recipes done')

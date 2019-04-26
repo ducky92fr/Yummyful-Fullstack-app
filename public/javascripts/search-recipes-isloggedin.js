@@ -91,12 +91,16 @@ function fetchDataURL() {
     axios
       .get(`${url}/api/searchapi?q=${valueCamelCase}`)
       .then(result => {
+        console.log(result)
         titleSearch.innerText = "";
         result.data.recipes.length > 0
           ? (titleSearch.innerText = valueCamelCase)
           : (titleSearch.innerText = "No Result");
         arrayRecipes = [...result.data.recipes];
-        arrayFavorite= [...result.data.liked]
+        console.log(arrayRecipes)
+        arrayFavorite= [...result.data.liked];
+        console.log(arrayFavorite)
+        
         displayResults(arrayRecipes,arrayFavorite);
       })
       .catch(error => {
