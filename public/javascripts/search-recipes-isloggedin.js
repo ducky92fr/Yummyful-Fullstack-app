@@ -6,16 +6,18 @@ const titleSearch = document.getElementById("title-search");
 const url = document.getElementById("site_url").content;
 let deltaElement = 0;
 let trackLastIndex = 0;
-let arrayResult = [];
+let arrayRecipes = [];
+let arrayFavorite = [];
 let imageClicked;
 let btnLike;
 
-function fillMarkup(data, index) {
+function fillMarkup(data,arrayFavorite, index) {
   const image = data[index].imageURL;
   const title = data[index].title;
   const type = data[index].type;
   const id = data[index]._id;
   const duration = data[index].duration.replace(/\D/g, "").concat("", "'");
+  console.log(arrayFavorite)
   const markup = `
   <div class="recipe">
            <img class="image-grid" idRecipe=${id} src=${image} alt="">
@@ -36,14 +38,15 @@ function fillMarkup(data, index) {
   wrap.insertAdjacentHTML("beforeend", markup);
 }
 
-function displayResults(data) {
+function displayResults(arrayRecipes,arrayFavorite) {
   deltaElement = 0;
   wrap.innerHTML = "";
   let loopLength;
-
-  data.length <= 9 ? (loopLength = data.length) : (loopLength = 9);
+  console.log("heheiii")
+  console.log(arrayFavorite)
+  arrayRecipes.length <= 9 ? (loopLength = arrayRecipes.length) : (loopLength = 9);
   for (let i = 0; i < loopLength; i++) {
-    fillMarkup(data, i);
+    fillMarkup(arrayRecipes,arrayFavorite, i);
   }
   imageClicked = document.querySelectorAll(".image-grid");
   btnLike = document.querySelectorAll(".recipe__love");
@@ -52,7 +55,7 @@ function displayResults(data) {
     btnLike[i].onclick = toggleLikeBtn;
   }
   trackLastIndex = loopLength;
-  deltaElement = data.length - 9;
+  deltaElement = arrayRecipes.length - 9;
   searchInput.value = "";
 }
 function searchRecipes(e) {
@@ -67,13 +70,15 @@ function searchRecipes(e) {
       result.data.recipes.length > 0
         ? (titleSearch.innerText = `Recipes that contain: ${valueCamelCase}`)
         : (titleSearch.innerText = "No Result");
-      arrayResult = [...result.data.recipes];
+      arrayRecipes = [...result.data.recipes];
+      arrayFavorite= [...result.data.liked]
+      console.log(result.data.liked)
       window.history.pushState(
         null,
         null,
         `/recipes/search?q=${searchInput.value}`
       );
-      displayResults(arrayResult);
+      displayResults(arrayRecipes,arrayFavorite);
     })
     .catch(error => {
       console.log("error");
@@ -92,8 +97,9 @@ function fetchDataURL() {
         result.data.recipes.length > 0
           ? (titleSearch.innerText = valueCamelCase)
           : (titleSearch.innerText = "No Result");
-        arrayResult = [...result.data.recipes];
-        displayResults(arrayResult);
+        arrayRecipes = [...result.data.recipes];
+        arrayFavorite = [...result.data.liked]
+        displayResults(arrayRecipes,arrayFavorite);
       })
       .catch(error => {
         console.log("error");
@@ -113,7 +119,7 @@ function scrollPageController() {
     console.log(deltaElement);
     deltaElement > 9 ? (loopLength = 9) : (loopLength = deltaElement);
     for (let i = 0; i < loopLength; i++) {
-      fillMarkup(arrayResult, trackLastIndex);
+      fillMarkup(arrayRecipes, trackLastIndex);
       imageClicked = document.querySelectorAll(".image-grid");
       btnLike = document.querySelectorAll(".recipe__love");
       imageClicked[trackLastIndex].onclick = getAllRecipeDetails;

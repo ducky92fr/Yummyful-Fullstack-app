@@ -9,7 +9,9 @@ exports.createFavorite = (req,res,next) => {
       const index = result.recipes.findIndex(el=> el.toString() === id )
       index > -1 ? result.recipes.splice(index,1):result.recipes.push(id)
       if(result.recipes.length === 0){
-        Favorite.findOneAndDelete({_id:result._id},err =>console.log(err))
+        Favorite.findOneAndDelete({_id:result._id},err =>{
+          console.log("delete recipe done")
+          console.log(err)})
         console.log(result._id)
       }else {
         Favorite.findOneAndUpdate({_id:result._id},{recipes:result.recipes},err=>{
