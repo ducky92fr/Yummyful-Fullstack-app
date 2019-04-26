@@ -105,6 +105,7 @@ function searchRecipes(e) {
 
 function fetchDataURL() {
   const valueSearch = window.location.search.split("=")[1];
+  console.log(window.location)
   if (valueSearch) {
     const valueCamelCase =
       valueSearch.charAt(0).toUpperCase() + valueSearch.slice(1);

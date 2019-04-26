@@ -20,11 +20,11 @@ function fillMarkup(data, index) {
   <div class="recipe">
            <img class="image-grid" idRecipe=${id} src=${image} alt="">
            <h1 class="type-dish">${type}</h1>
-           <button class="recipe__love">
            <a href="/user">
+           <button class="recipe__love">
            <i class="far fa-heart fa-2x heartgreen"></i>
-            </a>
            </button>
+           </a>
            <div class="recipe-details">
                <div class="recipe-name">${title}
                </div>
@@ -59,17 +59,10 @@ function displayResults(data) {
 function toggleBackgroundImageDisplay() {
   const randomImg = document.getElementById("random-image");
   const randomImgContainer = document.getElementById("random-img-container");
-  if (randomImg.classList.contains("img-not-hidden")) {
     randomImg.classList.remove("img-not-hidden");
     randomImgContainer.classList.remove("random-img-container-not-hidden");
     randomImg.classList.add("img-hidden");
     randomImgContainer.classList.add("random-img-container-hidden");
-  } else {
-    // randomImg.classList.remove("img-hidden");
-    // randomImgContainer.classList.remove("random-img-container-hidden");
-    // randomImg.classList.add("img-not-hidden");
-    // randomImgContainer.classList.add("random-img-container-not-hidden");
-  }
 }
 
 function searchRecipes(e) {
@@ -100,6 +93,7 @@ function searchRecipes(e) {
 
 function fetchDataURL() {
   const valueSearch = window.location.search.split("=")[1];
+  console.log(window.location)
   if (valueSearch) {
     const valueCamelCase =
       valueSearch.charAt(0).toUpperCase() + valueSearch.slice(1);
@@ -112,6 +106,7 @@ function fetchDataURL() {
           ? (titleSearch.innerText = valueCamelCase)
           : (titleSearch.innerText = "No Result");
         arrayResult = [...result.data.recipes];
+        toggleBackgroundImageDisplay()
         displayResults(arrayResult);
       })
       .catch(error => {
