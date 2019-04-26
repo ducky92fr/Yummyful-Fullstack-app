@@ -119,7 +119,7 @@ function scrollPageController() {
     console.log(deltaElement);
     deltaElement > 9 ? (loopLength = 9) : (loopLength = deltaElement);
     for (let i = 0; i < loopLength; i++) {
-      fillMarkup(arrayRecipes, trackLastIndex);
+      fillMarkup(arrayRecipes,arrayFavorite,trackLastIndex);
       imageClicked = document.querySelectorAll(".image-grid");
       btnLike = document.querySelectorAll(".recipe__love");
       imageClicked[trackLastIndex].onclick = getAllRecipeDetails;
