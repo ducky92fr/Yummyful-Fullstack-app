@@ -6,11 +6,9 @@
             <img class="image-grid" idRecipe={{this._id}} src={{this.imageURL}} alt="">
             <h1 class="type-dish">{{this.type}}</h1>
             <button class="recipe__love" idrecipebtn={{id}}>
-                {{#if isLiked}}
+            
                 <i class=" heart far fa-heart fa-2x"></i>
-                {{else}}
-                <i class=" far fa-heart fa-2x"></i>
-                {{/if}}
+            
             </button>
             <div class="recipe-details">
                 <div class="recipe-name">{{this.title}}
@@ -23,4 +21,13 @@
         </div>
         {{/each}}
     </div>
+    <div class="modal">
+  <div class="modal-background" id="login-background"></div>
+  <div class="modal-content" id="modal-recipe">
+
+    {{!-- insert your details recipe --}}
+
+  </div>
+  <button class="modal-close is-large" id="login-close" aria-label="close"></button>
+</div>
 </main>
