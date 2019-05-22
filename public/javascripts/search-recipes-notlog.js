@@ -9,32 +9,6 @@ const url = document.getElementById("site_url").content;
 let imageClicked;
 
 
-function searchRecipes(e) {
-  e.preventDefault();
-  axios
-    .get(`${url}/api/searchapi?q=${searchInput.value}`)
-    .then(result => {
-      titleSearch.innerText = "";
-      const valueCamelCase =
-        searchInput.value.charAt(0).toUpperCase() + searchInput.value.slice(1);
-
-      result.data.recipes.length > 0
-        ? (titleSearch.innerText = `${searchInput.value == false ? "All Recipes" : "Recipes that contains: " + valueCamelCase}`)
-        : (titleSearch.innerText = "No Result");
-      window.history.pushState(
-        null,
-        null,
-        `/recipes/search?q=${searchInput.value == false ? "all" : searchInput.value}`
-      );
-      removeBackgroundImageDisplay();
-      displayResults(result.data.recipes);
-      Pagination.Init(result.data.totalPages)
-    })
-    .catch(error => {
-      console.log(error);
-    });
-}
-
 function displayResults(arrayRecipes) {
   wrap.innerHTML = "";
   let loopLength;
@@ -79,36 +53,69 @@ function fillMarkup(data,index) {
   wrap.insertAdjacentHTML("beforeend", markup);
 }
 
+function fetchDataAxios(keyword,valueCamelCase) {
+  keyword === "all" ? keyword = "" : null
+  return axios
+  .get(`${url}/api/searchapi?q=${keyword}`)
+  .then(result => {
+    titleSearch.innerText = "";
+    result.data.recipes.length > 0
+    ? (titleSearch.innerText = `${keyword === "all" ? "All Recipes" : "Recipes that contains: " + valueCamelCase}`)
+    : (titleSearch.innerText = "No Result");
+    removeBackgroundImageDisplay()
+    displayResults(result.data.recipes);  
+    Pagination.Init(result.data.totalPages,1)
+  })
+  .catch(error => {
+    console.log(error);
+  });
+}
+
+//Search from searchbar with AJAX
+function searchRecipes(e) {
+  e.preventDefault();
+  const valueCamelCase =
+        searchInput.value.charAt(0).toUpperCase() + searchInput.value.slice(1);
+  fetchDataAxios(searchInput.value,valueCamelCase)
+  window.history.pushState(
+      null,
+      null,
+      `/recipes/search?q=${searchInput.value == false ? "all" : searchInput.value}`
+    );
+  
+}
 
 //This function is used when refresh Page, fetch data from URL,extract keyword from URL
-function fetchDataURL(e) {
-  console.log(e.target.innerText)
+function fetchDataURL() {
   const valueSearch = window.location.search.split("=")[1];
   if (valueSearch) {
     let valueCamelCase =
       valueSearch.charAt(0).toUpperCase() + valueSearch.slice(1);
     valueCamelCase === "All" ? valueCamelCase = "": null
-    axios
-      .get(`${url}/api/searchapi?q=${valueCamelCase}&page=${e.target.innerText}`)
-      .then(result => {
-        titleSearch.innerText = "";
-        result.data.recipes.length > 0
-        ? (titleSearch.innerText = `${valueSearch === "all" ? "All Recipes" : "Recipes that contains: " + valueCamelCase}`)
-        : (titleSearch.innerText = "No Result");
-        removeBackgroundImageDisplay()
-        displayResults(result.data.recipes);
-        Pagination.Init(result.data.totalPages)
-      })
-      .catch(error => {
-        console.log(error);
-      });
+   return fetchDataAxios(valueSearch,valueCamelCase)
   }else {
     addBackgroundImageDisplay()
     wrap.innerHTML=""
   }
 }
-formSearch.onsubmit = searchRecipes;
 
+
+
+
+function fetchDataPagination(e) {
+  console.log(e.target.innerText)
+  const valueSearch = window.location.search.split("=")[1];
+  let valueCamelCase = valueSearch.charAt(0).toUpperCase() + valueSearch.slice(1);
+    valueCamelCase === "All" ? valueCamelCase = "": null
+    axios
+      .get(`${url}/api/searchapi?q=${valueCamelCase}&page=${e.target.innerText}`)
+      .then(result => {
+        displayResults(result.data.recipes);
+      })
+      .catch(error => {
+        console.log(error);
+      });
+}
 
 // Get details fo recipe
 function getAllRecipeDetails(e) {
@@ -166,11 +173,11 @@ function toggleRecipeDetails() {
 
 const Pagination = {
   markup: '',
-  page:1,
   step:2,
   // converting initialize data
-  Extend: function(data) {
-      Pagination.size = data ;
+  Extend: function(size,page) {
+      Pagination.size = size
+      Pagination.page = page ;
   },
 
   // add pages by number (from [s] to [f])
@@ -202,7 +209,8 @@ const Pagination = {
   // change page
   Click: function(e) {
       Pagination.page = +this.innerHTML;
-      fetchDataURL(e);
+      fetchDataPagination(e);
+      Pagination.Start()
   },
 
   // binding pages
@@ -244,8 +252,8 @@ const Pagination = {
   },
 
   // init
-  Init: function(data) {
-      Pagination.Extend(data);
+  Init: function(size,page) {
+      Pagination.Extend(size,page);
       Pagination.Create();
       Pagination.Start();
   }
@@ -254,5 +262,6 @@ const Pagination = {
 document.querySelector(".modal-background").onclick = toggleRecipeDetails;
 document.querySelector(".modal-close").onclick = toggleRecipeDetails;
 
+formSearch.onsubmit = searchRecipes;
 window.onpopstate = fetchDataURL;
 window.onload = fetchDataURL;

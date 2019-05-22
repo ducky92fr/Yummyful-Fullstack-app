@@ -19,7 +19,7 @@ function fillMarkup(data, arrayFavorite, index) {
   const duration = data[index].duration.replace(/\D/g, "").concat("", "'");
   const isLiked = arrayFavorite.includes(id.toString());
   const markup = `
-  <div class="recipe">
+    <div class="recipe">
            <img class="image-grid" idRecipe=${id} src=${image} alt="">
            <h1 class="type-dish">${type}</h1>
            <button class="recipe__love" idrecipebtn=${id}>
@@ -33,7 +33,7 @@ function fillMarkup(data, arrayFavorite, index) {
                    <div class="duration">${duration}</div>
                </div>
            </div>
-       </div>
+      </div>
    `;
   wrap.insertAdjacentHTML("beforeend", markup);
 }
@@ -63,10 +63,10 @@ function displayResults(arrayRecipes, arrayFavorite) {
 function toggleBackgroundImageDisplay() {
   const randomImg = document.getElementById("random-image");
   const randomImgContainer = document.getElementById("random-img-container");
-    randomImg.classList.remove("img-not-hidden");
-    randomImgContainer.classList.remove("random-img-container-not-hidden");
-    randomImg.classList.add("img-hidden");
-    randomImgContainer.classList.add("random-img-container-hidden");
+  randomImg.classList.remove("img-not-hidden");
+  randomImgContainer.classList.remove("random-img-container-not-hidden");
+  randomImg.classList.add("img-hidden");
+  randomImgContainer.classList.add("random-img-container-hidden");
 }
 
 function searchRecipes(e) {
@@ -98,7 +98,7 @@ function searchRecipes(e) {
 
 function fetchDataURL() {
   const valueSearch = window.location.search.split("=")[1];
-  console.log(window.location)
+  console.log(window.location);
   if (valueSearch) {
     const valueCamelCase =
       valueSearch.charAt(0).toUpperCase() + valueSearch.slice(1);
@@ -125,7 +125,6 @@ function fetchDataURL() {
 
 formSearch.onsubmit = searchRecipes;
 
-
 // //get recipe-details
 
 function getAllRecipeDetails(e) {
@@ -147,13 +146,13 @@ function getAllRecipeDetails(e) {
           <div class="column"> <img src="${image}" alt="" class="img-recipe"/></div>
           <div class="column has-text-white">Ingredients: ${ingredients}</div>
       </div>
-    <div class="columns is-desktop">
-        <div class="column">
-        <div  class="is-size-5 has-text-white">${title}</div>
-        <div class ="has-text-white">${type}</div>
-         <div class ="has-text-white">${duration}</div>
-         <div class ="has-text-white">For: ${portion} portions</div>
-         <div class ="has-text-white">Instructions: ${instructions}</div>
+      <div class="columns is-desktop">
+          <div class="column">
+          <div  class="is-size-5 has-text-white">${title}</div>
+          <div class ="has-text-white">${type}</div>
+          <div class ="has-text-white">${duration}</div>
+          <div class ="has-text-white">For: ${portion} portions</div>
+           <div class ="has-text-white">Instructions: ${instructions}</div>
       </div>
     </div>
    `;
