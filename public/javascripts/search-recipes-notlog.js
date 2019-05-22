@@ -3,6 +3,8 @@ const formSearch = document.getElementById("form-search");
 const searchInput = document.getElementById("input-search");
 const wrap = document.getElementById("wrap");
 const titleSearch = document.getElementById("title-search");
+const randomImgContainer = document.getElementById("random-img-container");
+const paginationContainer = document.getElementById('pagination')
 const url = document.getElementById("site_url").content;
 let imageClicked;
 let btnLike;
@@ -14,6 +16,7 @@ function searchRecipes(e) {
   axios
     .get(`${url}/api/searchapi?q=${searchInput.value}`)
     .then(result => {
+      paginationContainer.innerHTML =""
       titleSearch.innerText = "";
       const valueCamelCase =
         searchInput.value.charAt(0).toUpperCase() + searchInput.value.slice(1);
@@ -25,8 +28,9 @@ function searchRecipes(e) {
         null,
         `/recipes/search?q=${searchInput.value == false ? "all" : searchInput.value}`
       );
-      toggleBackgroundImageDisplay();
+      removeBackgroundImageDisplay();
       displayResults(result.data.recipes);
+      pagination(result.data.totalPages)
     })
     .catch(error => {
       console.log("error");
@@ -79,19 +83,6 @@ function fillMarkup(data,index) {
 
 
 
-
-
-
-function toggleBackgroundImageDisplay() {
-  const randomImg = document.getElementById("random-image");
-  const randomImgContainer = document.getElementById("random-img-container");
-    randomImg.classList.remove("img-not-hidden");
-    randomImgContainer.classList.remove("random-img-container-not-hidden");
-    randomImg.classList.add("img-hidden");
-    randomImgContainer.classList.add("random-img-container-hidden");
-}
-
-
 function fetchDataURL() {
   const valueSearch = window.location.search.split("=")[1];
   if (valueSearch) {
@@ -102,18 +93,20 @@ function fetchDataURL() {
       .then(result => {
         titleSearch.innerText = "";
         result.data.recipes.length > 0
-          ? (titleSearch.innerText = valueCamelCase)
-          : (titleSearch.innerText = "No Result");
-        arrayResult = [...result.data.recipes];
-        toggleBackgroundImageDisplay()
-        displayResults(arrayResult);
+        ? (titleSearch.innerText = `${valueCamelCase === "All" ? "All Recipes" : "Recipes that contains: " + valueCamelCase}`)
+        : (titleSearch.innerText = "No Result");
+        removeBackgroundImageDisplay()
+        displayResults(result.data.recipes);
+        pagination()
       })
       .catch(error => {
         console.log("error");
       });
+  }else {
+    addBackgroundImageDisplay()
+    wrap.innerHTML=""
   }
 }
-
 formSearch.onsubmit = searchRecipes;
 
 
@@ -135,7 +128,7 @@ function getAllRecipeDetails(e) {
           <div class="column"> <img src="${image}" alt="" class="img-recipe"/></div>
           <div class="column has-text-white">Ingredients: ${ingredients}</div>
       </div>
-    <div class="columns is-desktop">
+      <div class="columns is-desktop">
         <div class="column">
         <div  class="is-size-5 has-text-white">${title}</div>
         <div class ="has-text-white">${type}</div>
@@ -158,6 +151,18 @@ function getAllRecipeDetails(e) {
 
 
 
+
+function removeBackgroundImageDisplay() {
+  randomImgContainer.innerHTML=""
+}
+function addBackgroundImageDisplay() {
+  if(!randomImgContainer.innerHTML){  
+  const markup  = `<div class="random-img-container-not-hidden">
+  <img src="3.jpg" alt="" id="random-image" class="img-not-hidden">
+</div>`
+  randomImgContainer.insertAdjacentHTML("afterbegin",markup)
+}
+}
 
 function toggleRecipeDetails() {
   const modal = document.querySelector(".modal");

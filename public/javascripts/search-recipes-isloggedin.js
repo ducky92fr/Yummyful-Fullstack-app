@@ -184,8 +184,6 @@ document.querySelector(".modal-close").onclick = toggleRecipeDetails;
 function toggleLikeBtn(e) {
   const elementTarget = e.target.closest(".recipe__love");
   const id = elementTarget.attributes.idrecipebtn.value;
-  console.log(id);
-  console.dir(elementTarget);
   const heartIcon = elementTarget.childNodes[1];
   if (heartIcon.classList.contains("heart")) {
     heartIcon.classList.remove("heart");
