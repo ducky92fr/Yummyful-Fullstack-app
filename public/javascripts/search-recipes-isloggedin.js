@@ -8,7 +8,6 @@ const url = document.getElementById("site_url").content;
 let arrayFavorite = [];
 
 function fillMarkup(arrayRecipes, arrayFavorite, index) {
-  console.log(arrayFavorite)
   const image = arrayRecipes[index].imageURL;
   const title = arrayRecipes[index].title;
   const type = arrayRecipes[index].type;
@@ -36,7 +35,6 @@ function fillMarkup(arrayRecipes, arrayFavorite, index) {
 }
 
 function displayResults(arrayRecipes, arrayFavorite) {
-  console.log(arrayFavorite)
   wrap.innerHTML = "";
   let loopLength;
   arrayRecipes.length < 9

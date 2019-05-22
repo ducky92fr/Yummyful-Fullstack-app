@@ -50,20 +50,9 @@ a.navbar-item {
 #logout-btn {
   font-size: 1rem;
   font-family: "Poiret One", cursive;
-  border: transparent;
-  color: rgb(80, 80, 80);
-  cursor: pointer;
-  padding: 1rem 0 1rem 1rem;
 }
-#logout-btn:hover {
-  font-size: 1rem;
-  font-family: "Poiret One", cursive;
-  border: transparent;
-  color: rgb(23, 112, 228);
-  cursor: pointer;
-  padding: 1rem 0 1rem 1rem;
-}
-/* .header {
+
+.header {
   box-shadow: 0 4px 6px -6px;
 }
 
@@ -109,4 +98,4 @@ a.navbar-item {
 #dropdown-element1,
 #dropdown-element2 {
   font-size: 1rem;
-} */
+}

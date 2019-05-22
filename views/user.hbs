@@ -1,27 +1,16 @@
 <main>
     <h1 class="title" id="title-search">My favorites</h1>
     <div class="recipes-container" id="wrap">
-        {{#each favRecipes}}
-        <div class="recipe">
-            <img class="image-grid" idRecipe={{this._id}} src={{this.imageURL}} alt="">
-            <h1 class="type-dish">{{this.type}}</h1>
-            <button class="recipe__love" idrecipebtn={{id}}>
-            
-                <i class=" heart far fa-heart fa-2x"></i>
-            
-            </button>
-            <div class="recipe-details">
-                <div class="recipe-name">{{this.title}}
-                </div>
-                <div class="duration-column">
-                    <i class="far fa-clock"></i>
-                    <div class="duration">{{this.duration}}</div>
-                </div>
-            </div>
-        </div>
-        {{/each}}
+       
     </div>
-    <div class="modal">
+  <nav class="pagination is-centered is-small"  role="navigation" aria-label="pagination">
+  <ul class="pagination-list" id="pagination">
+    
+  </ul>
+</nav>
+
+</main>
+  <div class="modal">
   <div class="modal-background" id="login-background"></div>
   <div class="modal-content" id="modal-recipe">
 
@@ -30,4 +19,3 @@
   </div>
   <button class="modal-close is-large" id="login-close" aria-label="close"></button>
 </div>
-</main>
