@@ -3,7 +3,6 @@ const express = require("express");
 const hbs = require("hbs");
 const hbsutils = require("hbs-utils")(hbs);
 const mongoose = require("mongoose");
-const axios = require("axios");
 const session = require("express-session");
 const flash = require("connect-flash");
 const path = require("path");

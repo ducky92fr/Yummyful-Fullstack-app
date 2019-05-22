@@ -1,9 +1,13 @@
 const Recipes = require("../models/recipe.js");
 const homepageControllers = require("../controllers/homepage.js")
 
+const recipes_per_page = 9
+
 //for Seach bar, input can be ingredient, title or type of dish(main, post-training....)
 exports.searchRecipes = (req, res, next) => {
   const ing = req.query.q.toLowerCase();
+  const page = req.query.page || 1
+  let totalPages;
   Recipes.find(
     {
       $or: [
@@ -11,13 +15,29 @@ exports.searchRecipes = (req, res, next) => {
         { title: { $regex: ing, $options: "i" } },
         { ingredients: { $regex: ing } }
       ]
-    },
-    "title type duration imageURL" //filtre qui permet de voir les caractéristiques qui vont s'afficher
+    }
   )
-    .then(recipes => {
+  .countDocuments()
+  .then(numRecipes => {
+    totalPages = Math.ceil(numRecipes/recipes_per_page)
+    return Recipes.find(
+      {
+        $or: [
+          { type: { $regex: ing, $options: "i" } },
+          { title: { $regex: ing, $options: "i" } },
+          { ingredients: { $regex: ing } }
+        ]
+      },
+      "title type duration imageURL" //filtre qui permet de voir les caractéristiques qui vont s'afficher
+    )
+    .skip((page - 1) * recipes_per_page)
+    .limit(recipes_per_page)
+  })
+  .then(recipes => {
       const tmp ={
         liked :req.session.liked,
-        recipes
+        recipes,
+        totalPages
       }
       if (req.path === "/searchapi") {
 

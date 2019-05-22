@@ -63,17 +63,10 @@ function displayResults(arrayRecipes, arrayFavorite) {
 function toggleBackgroundImageDisplay() {
   const randomImg = document.getElementById("random-image");
   const randomImgContainer = document.getElementById("random-img-container");
-  if (randomImg.classList.contains("img-not-hidden")) {
     randomImg.classList.remove("img-not-hidden");
     randomImgContainer.classList.remove("random-img-container-not-hidden");
     randomImg.classList.add("img-hidden");
     randomImgContainer.classList.add("random-img-container-hidden");
-  } else {
-    // randomImg.classList.remove("img-hidden");
-    // randomImgContainer.classList.remove("random-img-container-hidden");
-    // randomImg.classList.add("img-not-hidden");
-    // randomImgContainer.classList.add("random-img-container-not-hidden");
-  }
 }
 
 function searchRecipes(e) {
@@ -132,26 +125,6 @@ function fetchDataURL() {
 
 formSearch.onsubmit = searchRecipes;
 
-// Scroll
-function scrollPageController() {
-  const contentHeight = wrap.offsetHeight;
-  let yOffset = window.pageYOffset;
-  let y = yOffset + window.innerHeight;
-  if (y >= contentHeight && deltaElement > 0) {
-    let loopLength;
-    console.log(deltaElement);
-    deltaElement > 9 ? (loopLength = 9) : (loopLength = deltaElement);
-    for (let i = 0; i < loopLength; i++) {
-      fillMarkup(arrayRecipes, arrayFavorite, trackLastIndex);
-      imageClicked = document.querySelectorAll(".image-grid");
-      btnLike = document.querySelectorAll(".recipe__love");
-      imageClicked[trackLastIndex].onclick = getAllRecipeDetails;
-      btnLike[trackLastIndex].onclick = toggleLikeBtn;
-      trackLastIndex++;
-      deltaElement--;
-    }
-  }
-}
 
 // //get recipe-details
 
@@ -225,6 +198,5 @@ function toggleLikeBtn(e) {
     .catch(err => console.log(err));
 }
 
-window.onscroll = scrollPageController;
 window.onpopstate = fetchDataURL;
 window.onload = fetchDataURL;

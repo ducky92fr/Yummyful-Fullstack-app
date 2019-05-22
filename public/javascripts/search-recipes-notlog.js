@@ -4,13 +4,52 @@ const searchInput = document.getElementById("input-search");
 const wrap = document.getElementById("wrap");
 const titleSearch = document.getElementById("title-search");
 const url = document.getElementById("site_url").content;
-let deltaElement = 0;
-let trackLastIndex = 0;
-let arrayResult = [];
 let imageClicked;
 let btnLike;
 
-function fillMarkup(data, index) {
+
+
+function searchRecipes(e) {
+  e.preventDefault();
+  axios
+    .get(`${url}/api/searchapi?q=${searchInput.value}`)
+    .then(result => {
+      titleSearch.innerText = "";
+      const valueCamelCase =
+        searchInput.value.charAt(0).toUpperCase() + searchInput.value.slice(1);
+      result.data.recipes.length > 0
+        ? (titleSearch.innerText = `${searchInput.value == false ? "All Recipes" : "Recipes that contains: " + valueCamelCase}`)
+        : (titleSearch.innerText = "No Result");
+      window.history.pushState(
+        null,
+        null,
+        `/recipes/search?q=${searchInput.value == false ? "all" : searchInput.value}`
+      );
+      toggleBackgroundImageDisplay();
+      displayResults(result.data.recipes);
+    })
+    .catch(error => {
+      console.log("error");
+    });
+}
+
+function displayResults(arrayRecipes) {
+  wrap.innerHTML = "";
+  let loopLength;
+  arrayRecipes.length < 9 ? loopLength = arrayRecipes.length : loopLength = 9
+  for (let i = 0; i < loopLength; i++) {
+    fillMarkup(arrayRecipes, i);
+  }
+
+  imageClicked = document.querySelectorAll(".image-grid");
+  for (let i = 0; i < loopLength; i++) {
+    imageClicked[i].onclick = getAllRecipeDetails;
+  }
+  searchInput.value = "";
+}
+
+
+function fillMarkup(data,index) {
   const image = data[index].imageURL;
   const title = data[index].title;
   const type = data[index].type;
@@ -38,23 +77,10 @@ function fillMarkup(data, index) {
   wrap.insertAdjacentHTML("beforeend", markup);
 }
 
-function displayResults(data) {
-  deltaElement = 0;
-  wrap.innerHTML = "";
-  let loopLength;
-  data.length <= 9 ? (loopLength = data.length) : (loopLength = 9);
-  for (let i = 0; i < loopLength; i++) {
-    fillMarkup(data, i);
-  }
-  imageClicked = document.querySelectorAll(".image-grid");
-  btnLike = document.querySelectorAll(".recipe__love");
-  for (let i = 0; i < imageClicked.length; i++) {
-    imageClicked[i].onclick = getAllRecipeDetails;
-  }
-  trackLastIndex = loopLength;
-  deltaElement = data.length - 9;
-  searchInput.value = "";
-}
+
+
+
+
 
 function toggleBackgroundImageDisplay() {
   const randomImg = document.getElementById("random-image");
@@ -65,42 +91,15 @@ function toggleBackgroundImageDisplay() {
     randomImgContainer.classList.add("random-img-container-hidden");
 }
 
-function searchRecipes(e) {
-  e.preventDefault();
-  axios
-    .get(`${url}/api/searchapi?q=${searchInput.value}`)
-    .then(result => {
-      console.log(result);
-      titleSearch.innerText = "";
-      const valueCamelCase =
-        searchInput.value.charAt(0).toUpperCase() + searchInput.value.slice(1);
-      result.data.recipes.length > 0
-        ? (titleSearch.innerText = `Recipes that contain: ${valueCamelCase}`)
-        : (titleSearch.innerText = "No Result");
-      arrayResult = [...result.data.recipes];
-      window.history.pushState(
-        null,
-        null,
-        `/recipes/search?q=${searchInput.value}`
-      );
-      toggleBackgroundImageDisplay();
-      displayResults(arrayResult);
-    })
-    .catch(error => {
-      console.log("error");
-    });
-}
 
 function fetchDataURL() {
   const valueSearch = window.location.search.split("=")[1];
-  console.log(window.location)
   if (valueSearch) {
     const valueCamelCase =
       valueSearch.charAt(0).toUpperCase() + valueSearch.slice(1);
     axios
       .get(`${url}/api/searchapi?q=${valueCamelCase}`)
       .then(result => {
-        console.log(result);
         titleSearch.innerText = "";
         result.data.recipes.length > 0
           ? (titleSearch.innerText = valueCamelCase)
@@ -117,35 +116,13 @@ function fetchDataURL() {
 
 formSearch.onsubmit = searchRecipes;
 
-// Scroll
-function scrollPageController() {
-  const contentHeight = wrap.offsetHeight;
-  let yOffset = window.pageYOffset;
-  let y = yOffset + window.innerHeight - 350;
-  if (y >= contentHeight && deltaElement > 0) {
-    let loopLength;
-    console.log(deltaElement);
-    deltaElement > 9 ? (loopLength = 9) : (loopLength = deltaElement);
-    for (let i = 0; i < loopLength; i++) {
-      fillMarkup(arrayResult, trackLastIndex);
-      imageClicked = document.querySelectorAll(".image-grid");
-      btnLike = document.querySelectorAll(".recipe__love");
-      imageClicked[trackLastIndex].onclick = getAllRecipeDetails;
-      trackLastIndex++;
-      deltaElement--;
-    }
-  }
-}
 
-// //get recipe-details
 
 function getAllRecipeDetails(e) {
   const id = e.target.attributes.idrecipe.value;
-
   axios
     .get(`${url}/api/getAPI?rID=${id}`)
     .then(result => {
-      console.log(result.data);
       const image = result.data.imageURL;
       const title = result.data.title;
       const type = result.data.type;
@@ -154,7 +131,6 @@ function getAllRecipeDetails(e) {
       const ingredients = result.data.ingredients;
       const instructions = result.data.instructions;
       const markup = `
-
       <div class="columns is-desktop " >
           <div class="column"> <img src="${image}" alt="" class="img-recipe"/></div>
           <div class="column has-text-white">Ingredients: ${ingredients}</div>
@@ -175,10 +151,13 @@ function getAllRecipeDetails(e) {
 
       document.querySelector(".modal").classList.add("is-active");
 
-      // Travailler avec DOM. Selectionner
     })
-    .catch();
+    .catch(err => console.log(err));
 }
+
+
+
+
 
 function toggleRecipeDetails() {
   const modal = document.querySelector(".modal");
@@ -193,6 +172,5 @@ function toggleRecipeDetails() {
 document.querySelector(".modal-background").onclick = toggleRecipeDetails;
 document.querySelector(".modal-close").onclick = toggleRecipeDetails;
 
-window.onscroll = scrollPageController;
 window.onpopstate = fetchDataURL;
 window.onload = fetchDataURL;
