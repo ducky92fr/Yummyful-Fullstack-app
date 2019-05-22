@@ -1,4 +1,4 @@
-const searchBtn = document.getElementById("btn-search");
+// import Pagination from './pagination.js'
 const formSearch = document.getElementById("form-search");
 const searchInput = document.getElementById("input-search");
 const wrap = document.getElementById("wrap");
@@ -7,8 +7,6 @@ const randomImgContainer = document.getElementById("random-img-container");
 const paginationContainer = document.getElementById('pagination')
 const url = document.getElementById("site_url").content;
 let imageClicked;
-let btnLike;
-
 
 
 function searchRecipes(e) {
@@ -16,10 +14,10 @@ function searchRecipes(e) {
   axios
     .get(`${url}/api/searchapi?q=${searchInput.value}`)
     .then(result => {
-      paginationContainer.innerHTML =""
       titleSearch.innerText = "";
       const valueCamelCase =
         searchInput.value.charAt(0).toUpperCase() + searchInput.value.slice(1);
+
       result.data.recipes.length > 0
         ? (titleSearch.innerText = `${searchInput.value == false ? "All Recipes" : "Recipes that contains: " + valueCamelCase}`)
         : (titleSearch.innerText = "No Result");
@@ -30,10 +28,10 @@ function searchRecipes(e) {
       );
       removeBackgroundImageDisplay();
       displayResults(result.data.recipes);
-      pagination(result.data.totalPages)
+      Pagination.Init(result.data.totalPages)
     })
     .catch(error => {
-      console.log("error");
+      console.log(error);
     });
 }
 
@@ -82,25 +80,27 @@ function fillMarkup(data,index) {
 }
 
 
-
-function fetchDataURL() {
+//This function is used when refresh Page, fetch data from URL,extract keyword from URL
+function fetchDataURL(e) {
+  console.log(e.target.innerText)
   const valueSearch = window.location.search.split("=")[1];
   if (valueSearch) {
-    const valueCamelCase =
+    let valueCamelCase =
       valueSearch.charAt(0).toUpperCase() + valueSearch.slice(1);
+    valueCamelCase === "All" ? valueCamelCase = "": null
     axios
-      .get(`${url}/api/searchapi?q=${valueCamelCase}`)
+      .get(`${url}/api/searchapi?q=${valueCamelCase}&page=${e.target.innerText}`)
       .then(result => {
         titleSearch.innerText = "";
         result.data.recipes.length > 0
-        ? (titleSearch.innerText = `${valueCamelCase === "All" ? "All Recipes" : "Recipes that contains: " + valueCamelCase}`)
+        ? (titleSearch.innerText = `${valueSearch === "all" ? "All Recipes" : "Recipes that contains: " + valueCamelCase}`)
         : (titleSearch.innerText = "No Result");
         removeBackgroundImageDisplay()
         displayResults(result.data.recipes);
-        pagination()
+        Pagination.Init(result.data.totalPages)
       })
       .catch(error => {
-        console.log("error");
+        console.log(error);
       });
   }else {
     addBackgroundImageDisplay()
@@ -110,22 +110,16 @@ function fetchDataURL() {
 formSearch.onsubmit = searchRecipes;
 
 
-
+// Get details fo recipe
 function getAllRecipeDetails(e) {
   const id = e.target.attributes.idrecipe.value;
   axios
     .get(`${url}/api/getAPI?rID=${id}`)
     .then(result => {
-      const image = result.data.imageURL;
-      const title = result.data.title;
-      const type = result.data.type;
-      const duration = result.data.duration;
-      const portion = result.data.part;
-      const ingredients = result.data.ingredients;
-      const instructions = result.data.instructions;
+      const {imageURL,title,type,duration,part,ingredients,instructions} = result.data
       const markup = `
       <div class="columns is-desktop " >
-          <div class="column"> <img src="${image}" alt="" class="img-recipe"/></div>
+          <div class="column"> <img src="${imageURL}" alt="" class="img-recipe"/></div>
           <div class="column has-text-white">Ingredients: ${ingredients}</div>
       </div>
       <div class="columns is-desktop">
@@ -133,7 +127,7 @@ function getAllRecipeDetails(e) {
         <div  class="is-size-5 has-text-white">${title}</div>
         <div class ="has-text-white">${type}</div>
          <div class ="has-text-white">${duration}</div>
-         <div class ="has-text-white">For: ${portion} portions</div>
+         <div class ="has-text-white">For: ${part} portions</div>
          <div class ="has-text-white">Instructions: ${instructions}</div>
       </div>
     </div>
@@ -141,14 +135,10 @@ function getAllRecipeDetails(e) {
       document
         .getElementById("modal-recipe")
         .insertAdjacentHTML("afterbegin", markup);
-
       document.querySelector(".modal").classList.add("is-active");
-
     })
     .catch(err => console.log(err));
 }
-
-
 
 
 
@@ -173,6 +163,93 @@ function toggleRecipeDetails() {
     modal.classList.add("is-active");
   }
 }
+
+const Pagination = {
+  markup: '',
+  page:1,
+  step:2,
+  // converting initialize data
+  Extend: function(data) {
+      Pagination.size = data ;
+  },
+
+  // add pages by number (from [s] to [f])
+  Add: function(s, f) {
+      for (let i = s; i < f; i++) {
+          Pagination.markup += `
+          <li>
+          <a class="pagination-link" aria-label="Goto page ${i}">${i}</a>
+        </li>`;
+      }
+  },
+
+  // add last page with separator
+  Last: function() {
+      Pagination.markup += 
+      `<li><span class="pagination-ellipsis">&hellip;</span></li>
+      <li><a class="pagination-link" aria-label="Goto page ${Pagination.size}">${Pagination.size}</a></li>`;
+  },
+
+  // add first page with separator
+  First: function() {
+      Pagination.markup += `
+      <li>
+      <a class="pagination-link" aria-label="Goto page 1">1</a>
+    </li>
+    <li><span class="pagination-ellipsis">&hellip;</span></li>`;
+  },
+
+  // change page
+  Click: function(e) {
+      Pagination.page = +this.innerHTML;
+      fetchDataURL(e);
+  },
+
+  // binding pages
+  Bind: function() {
+      const a = paginationContainer.getElementsByTagName('a');
+      //check if this is current page
+      for (let i = 0; i < a.length; i++) {
+          if (+a[i].innerHTML === Pagination.page) a[i].classList.add("is-current")
+          a[i].onclick = Pagination.Click
+      }
+  },
+
+  // find pagination type
+  Start: function() {
+      if (Pagination.size < Pagination.step * 2 + 6) {
+          Pagination.Add(1, Pagination.size + 1);
+      }
+      else if (Pagination.page < Pagination.step * 2 + 1) {
+          Pagination.Add(1, Pagination.step * 2 + 4);
+          Pagination.Last();
+      }
+      else if (Pagination.page > Pagination.size - Pagination.step * 2) {
+          Pagination.First();
+          Pagination.Add(Pagination.size - Pagination.step * 2 - 2, Pagination.size + 1);
+      }
+      else {
+          Pagination.First();
+          Pagination.Add(Pagination.page - Pagination.step, Pagination.page + Pagination.step + 1);
+          Pagination.Last();
+      }
+      Pagination.Create();
+  },
+
+
+  Create: function() {
+    paginationContainer.innerHTML = Pagination.markup;
+    Pagination.markup = '';
+    Pagination.Bind();
+  },
+
+  // init
+  Init: function(data) {
+      Pagination.Extend(data);
+      Pagination.Create();
+      Pagination.Start();
+  }
+};
 
 document.querySelector(".modal-background").onclick = toggleRecipeDetails;
 document.querySelector(".modal-close").onclick = toggleRecipeDetails;
