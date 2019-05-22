@@ -4,7 +4,6 @@ exports.createFavorite = (req, res, next) => {
   const id = req.query.rID;
   Favorite.findOne({ userId: req.session.user._id }).then(result => {
     if (result) {
-      console.log(result);
       const index = result.recipes.findIndex(el => el.toString() === id);
       index > -1 ? result.recipes.splice(index, 1) : result.recipes.push(id);
       if (result.recipes.length === 0) {

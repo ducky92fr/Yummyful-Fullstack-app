@@ -6,7 +6,6 @@ const titleSearch = document.getElementById("title-search");
 const randomImgContainer = document.getElementById("random-img-container");
 const paginationContainer = document.getElementById('pagination')
 const url = document.getElementById("site_url").content;
-let imageClicked;
 
 
 function displayResults(arrayRecipes) {
@@ -17,14 +16,12 @@ function displayResults(arrayRecipes) {
     fillMarkup(arrayRecipes, i);
   }
 
-  imageClicked = document.querySelectorAll(".image-grid");
+  const imageClicked = document.querySelectorAll(".image-grid");
   for (let i = 0; i < loopLength; i++) {
     imageClicked[i].onclick = getAllRecipeDetails;
   }
   searchInput.value = "";
 }
-
-
 function fillMarkup(data,index) {
   const image = data[index].imageURL;
   const title = data[index].title;
@@ -99,11 +96,7 @@ function fetchDataURL() {
   }
 }
 
-
-
-
 function fetchDataPagination(e) {
-  console.log(e.target.innerText)
   const valueSearch = window.location.search.split("=")[1];
   let valueCamelCase = valueSearch.charAt(0).toUpperCase() + valueSearch.slice(1);
     valueCamelCase === "All" ? valueCamelCase = "": null
