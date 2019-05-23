@@ -15,21 +15,12 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 40rem;
-}
-.random-img-container-hidden {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 0;
 }
 
 .img-not-hidden {
   width: 50rem;
 }
-.img-hidden {
-  width: 0;
-}
+
 
 main {
   margin: 5rem auto;

@@ -1,60 +1,10 @@
-#form-search {
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
+.group-items{
+  display:flex;
 }
 
-#search-bar {
-  position: sticky;
-  top: 4rem;
-  background-color: whitesmoke;
-  margin: 0;
-  z-index: 1;
-}
-#search-bar .field {
-  flex: 0 0 90%;
-  margin-bottom: 0;
-}
-#input-search {
-  font-family: "Poiret One", cursive;
-  /* width: 40rem; */
-  padding-left: 1rem;
-  border-radius: 1rem;
-  font-size: 1.25rem;
-}
-#input-search:active {
+#input-search::placeholder{
   font-family: "Poiret One", cursive;
 }
-
-[placeholder]:focus::-webkit-input-placeholder {
-  color: transparent;
+#search-btn {
+  font-family: "Poiret One", cursive;
 }
-
-.columns {
-  display: flex;
-  flex-direction: row;
-}
-
-#btn-search {
-  height: 2.8rem;
-  /* margin-top: 0.7rem; */
-  margin-left: 0;
-  background-color: rgb(46, 104, 94);
-  cursor: pointer;
-  max-width: 44px;
-  flex: 0 0 100%;
-  border-radius: 1rem;
-  color: white;
-}
-
-/* #btn-search:hover {
-  /* .............;; */
-
-
-.column.is-half {
-  padding-right: 0;
-}
-
-/* #input-search:focus {
-  outline: none;
-} */
