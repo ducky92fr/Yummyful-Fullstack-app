@@ -52,7 +52,7 @@ function fillMarkup(data, index) {
 }
 
 function fetchDataAxios(keyword, valueCamelCase) {
-  keyword === "all" ? (keyword = "") : null;
+  keyword === "all" ? (keyword = "") : keyword;
   return axios
     .get(`${url}/api/searchapi?q=${keyword}`)
     .then(result => {
@@ -61,6 +61,8 @@ function fetchDataAxios(keyword, valueCamelCase) {
         ? (titleSearch.innerText = `${
             keyword === "all"
               ? "All Recipes"
+              : valueCamelCase === "All"
+              ? "All recipes"
               : "Recipes that contains: " + valueCamelCase
           }`)
         : (titleSearch.innerText = "No Result");
@@ -76,9 +78,11 @@ function fetchDataAxios(keyword, valueCamelCase) {
 //Search from searchbar with AJAX
 function searchRecipes(e) {
   e.preventDefault();
+  let inputValue = searchInput.value;
+  inputValue === "" ? (inputValue = "all") : inputValue;
   const valueCamelCase =
-    searchInput.value.charAt(0).toUpperCase() + searchInput.value.slice(1);
-  fetchDataAxios(searchInput.value, valueCamelCase);
+    inputValue.charAt(0).toUpperCase() + inputValue.slice(1);
+  fetchDataAxios(inputValue, valueCamelCase);
   window.history.pushState(
     null,
     null,
@@ -94,7 +98,6 @@ function fetchDataURL() {
   if (valueSearch) {
     let valueCamelCase =
       valueSearch.charAt(0).toUpperCase() + valueSearch.slice(1);
-    valueCamelCase === "All" ? (valueCamelCase = "") : null;
     return fetchDataAxios(valueSearch, valueCamelCase);
   } else {
     addBackgroundImageDisplay();
