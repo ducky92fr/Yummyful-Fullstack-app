@@ -167,6 +167,8 @@ function addBackgroundImageDisplay() {
   <img src="3.jpg" alt="" id="random-image" class="img-not-hidden">
 </div>`;
     randomImgContainer.insertAdjacentHTML("afterbegin", markup);
+    paginationContainer.innerHTML = "";
+    titleSearch.innerText = "";
   }
 }
 
