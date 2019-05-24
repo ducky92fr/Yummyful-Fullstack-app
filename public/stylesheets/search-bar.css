@@ -1,8 +1,8 @@
-.group-items{
-  display:flex;
+.group-items {
+  display: flex;
 }
 
-#input-search::placeholder{
+#input-search::placeholder {
   font-family: "Poiret One", cursive;
 }
 #search-btn {

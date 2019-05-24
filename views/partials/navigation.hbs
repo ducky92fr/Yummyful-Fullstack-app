@@ -20,18 +20,18 @@
       </a>
     </div>
     {{#if isAuthenticated}}
-    
+
     <div class="navbar-end">
       <div class="navbar-item">
-        <form method ="POST" action ='/logout'>
-        <div class="buttons" type="submit" >
-          <button class="button is-primary" id="logout-btn">Logout</button>
-        </div>
+        <form method="POST" action='/logout'>
+          <div class="buttons" type="submit">
+            <button class="button is-primary" id="logout-btn">Logout</button>
+          </div>
         </form>
       </div>
     </div>
     {{else}}
-   
+
     <div class="navbar-end">
       <div class="navbar-item">
         <div class="buttons">
@@ -46,20 +46,3 @@
     </div>
     {{/if}}
 </nav>
-
-
-
-
- {{!-- <div class="navbar-item has-dropdown is-hoverable">
-      <a class="navbar-link menu" href="/user">
-        My profile
-      </a>
-      <div class="navbar-dropdown">
-
-        <form action="/logout" method="POST">
-          <button type="submit" id="logout-btn">
-            Logout
-          </button>
-        </form>
-      </div>
-    </div>  --}}

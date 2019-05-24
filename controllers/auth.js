@@ -1,9 +1,9 @@
-const User = require('../models/user');
+const User = require("../models/user");
 const Favorite = require("../models/favorite.js");
-const bcrypt = require("bcrypt")
+const bcrypt = require("bcrypt");
 exports.getLogin = (req, res, next) => {
-  res.render("auth/login.hbs",{
-    errorMessage: req.flash('error'),
+  res.render("auth/login.hbs", {
+    errorMessage: req.flash("error")
   });
 };
 
@@ -12,7 +12,6 @@ exports.getSignup = (req, res, next) => {
     errorMessage: req.flash("error")
   });
 };
-
 
 exports.postLogin = (req, res, next) => {
   const email = req.body.email;
@@ -28,21 +27,23 @@ exports.postLogin = (req, res, next) => {
       .compare(password, user.password)
       .then(doMatch => {
         if (doMatch) {
-          Favorite.find({userId:user._id})
-          .then(favorite => {
-            console.log(favorite)
-            favorite.length > 0 ? req.session.liked = [...favorite[0].recipes]:req.session.liked =["13431423423"]
+          Favorite.find({ userId: user._id }).then(favorite => {
+            console.log(favorite);
+            favorite.length > 0
+              ? (req.session.liked = [...favorite[0].recipes])
+              : (req.session.liked = ["13431423423"]);
             req.session.isLoggedIn = true;
             req.session.user = user;
             return req.session.save(err => {
-              console.log("login done")
+              console.log("login done");
               console.log(err);
               return res.redirect("/user");
             });
-          })
-        }else{
-        req.flash("error", "Invalid password");
-        res.redirect("/login");}
+          });
+        } else {
+          req.flash("error", "Invalid password");
+          res.redirect("/login");
+        }
       })
 
       .catch(err => {
@@ -59,7 +60,7 @@ exports.postSignup = (req, res, next) => {
   User.findOne({ email: email })
     .then(result => {
       if (result) {
-        req.flash("error", "You already have an account"); 
+        req.flash("error", "You already have an account");
         return res.redirect("/signup");
       }
       return bcrypt
@@ -84,7 +85,7 @@ exports.postSignup = (req, res, next) => {
 exports.postLogout = (req, res, next) => {
   return req.session.destroy(err => {
     console.log(err);
-    console.log("logout done")
+    console.log("logout done");
     res.redirect("/");
   });
 };

@@ -1,5 +1,5 @@
 const Favorite = require("../models/favorite.js");
-const recipes_per_page = 9
+const recipes_per_page = 9;
 exports.createFavorite = (req, res, next) => {
   const id = req.query.rID;
   Favorite.findOne({ userId: req.session.user._id }).then(result => {
@@ -44,26 +44,28 @@ exports.createFavorite = (req, res, next) => {
   });
 };
 
-
-exports.getFavorite =(req,res,next) => {
+exports.getFavorite = (req, res, next) => {
   let totalPages;
-  const page = req.query.page || 1
+  const page = req.query.page || 1;
   Favorite.findOne({ userId: req.session.user._id })
     .populate("recipes")
     .then(recipes => {
-    const arrayRecipes = recipes.recipes
-    totalPages = Math.ceil(arrayRecipes.length/recipes_per_page)
-    const numberStart = (page - 1) * recipes_per_page
-    const numberFinish = page * recipes_per_page
-    const recipesWithPagination = arrayRecipes.slice(numberStart,numberFinish)
-    const tmp ={
-      recipes:recipesWithPagination,
-      totalPages
-    }
-    return res.status(200).json(tmp);
-   
-  })
+      const arrayRecipes = recipes.recipes;
+      totalPages = Math.ceil(arrayRecipes.length / recipes_per_page);
+      const numberStart = (page - 1) * recipes_per_page;
+      const numberFinish = page * recipes_per_page;
+      const recipesWithPagination = arrayRecipes.slice(
+        numberStart,
+        numberFinish
+      );
+      const tmp = {
+        recipes: recipesWithPagination,
+        totalPages
+      };
+      return res.status(200).json(tmp);
+    })
 
-  .catch(err => {
+    .catch(err => {
       console.log(err);
-    })}
+    });
+};

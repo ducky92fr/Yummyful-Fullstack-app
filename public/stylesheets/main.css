@@ -21,7 +21,6 @@
   width: 50rem;
 }
 
-
 main {
   margin: 5rem auto;
 }
@@ -144,6 +143,6 @@ h1 {
   color: blue;
 }
 
-#pagination{
-  margin-top:60px
+#pagination {
+  margin-top: 60px;
 }

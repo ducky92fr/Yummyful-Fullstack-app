@@ -4,14 +4,15 @@ const searchInput = document.getElementById("input-search");
 const wrap = document.getElementById("wrap");
 const titleSearch = document.getElementById("title-search");
 const randomImgContainer = document.getElementById("random-img-container");
-const paginationContainer = document.getElementById('pagination')
+const paginationContainer = document.getElementById("pagination");
 const url = document.getElementById("site_url").content;
-
 
 function displayResults(arrayRecipes) {
   wrap.innerHTML = "";
   let loopLength;
-  arrayRecipes.length < 9 ? loopLength = arrayRecipes.length : loopLength = 9
+  arrayRecipes.length < 9
+    ? (loopLength = arrayRecipes.length)
+    : (loopLength = 9);
   for (let i = 0; i < loopLength; i++) {
     fillMarkup(arrayRecipes, i);
   }
@@ -22,7 +23,7 @@ function displayResults(arrayRecipes) {
   }
   searchInput.value = "";
 }
-function fillMarkup(data,index) {
+function fillMarkup(data, index) {
   const image = data[index].imageURL;
   const title = data[index].title;
   const type = data[index].type;
@@ -45,41 +46,46 @@ function fillMarkup(data,index) {
                    <div class="duration">${duration}</div>
                </div>
            </div>
-       </div>
+  </div>
    `;
   wrap.insertAdjacentHTML("beforeend", markup);
 }
 
-function fetchDataAxios(keyword,valueCamelCase) {
-  keyword === "all" ? keyword = "" : null
+function fetchDataAxios(keyword, valueCamelCase) {
+  keyword === "all" ? (keyword = "") : null;
   return axios
-  .get(`${url}/api/searchapi?q=${keyword}`)
-  .then(result => {
-    titleSearch.innerText = "";
-    result.data.recipes.length > 0
-    ? (titleSearch.innerText = `${keyword === "all" ? "All Recipes" : "Recipes that contains: " + valueCamelCase}`)
-    : (titleSearch.innerText = "No Result");
-    removeBackgroundImageDisplay()
-    displayResults(result.data.recipes);  
-    Pagination.Init(result.data.totalPages,1)
-  })
-  .catch(error => {
-    console.log(error);
-  });
+    .get(`${url}/api/searchapi?q=${keyword}`)
+    .then(result => {
+      titleSearch.innerText = "";
+      result.data.recipes.length > 0
+        ? (titleSearch.innerText = `${
+            keyword === "all"
+              ? "All Recipes"
+              : "Recipes that contains: " + valueCamelCase
+          }`)
+        : (titleSearch.innerText = "No Result");
+      removeBackgroundImageDisplay();
+      displayResults(result.data.recipes);
+      Pagination.Init(result.data.totalPages, 1);
+    })
+    .catch(error => {
+      console.log(error);
+    });
 }
 
 //Search from searchbar with AJAX
 function searchRecipes(e) {
   e.preventDefault();
   const valueCamelCase =
-        searchInput.value.charAt(0).toUpperCase() + searchInput.value.slice(1);
-  fetchDataAxios(searchInput.value,valueCamelCase)
+    searchInput.value.charAt(0).toUpperCase() + searchInput.value.slice(1);
+  fetchDataAxios(searchInput.value, valueCamelCase);
   window.history.pushState(
-      null,
-      null,
-      `/recipes/search?q=${searchInput.value == false ? "all" : searchInput.value}`
-    );
-  
+    null,
+    null,
+    `/recipes/search?q=${
+      searchInput.value == false ? "all" : searchInput.value
+    }`
+  );
 }
 
 //This function is used when refresh Page, fetch data from URL,extract keyword from URL
@@ -88,26 +94,27 @@ function fetchDataURL() {
   if (valueSearch) {
     let valueCamelCase =
       valueSearch.charAt(0).toUpperCase() + valueSearch.slice(1);
-    valueCamelCase === "All" ? valueCamelCase = "": null
-   return fetchDataAxios(valueSearch,valueCamelCase)
-  }else {
-    addBackgroundImageDisplay()
-    wrap.innerHTML=""
+    valueCamelCase === "All" ? (valueCamelCase = "") : null;
+    return fetchDataAxios(valueSearch, valueCamelCase);
+  } else {
+    addBackgroundImageDisplay();
+    wrap.innerHTML = "";
   }
 }
 
 function fetchDataPagination(e) {
   const valueSearch = window.location.search.split("=")[1];
-  let valueCamelCase = valueSearch.charAt(0).toUpperCase() + valueSearch.slice(1);
-    valueCamelCase === "All" ? valueCamelCase = "": null
-    axios
-      .get(`${url}/api/searchapi?q=${valueCamelCase}&page=${e.target.innerText}`)
-      .then(result => {
-        displayResults(result.data.recipes);
-      })
-      .catch(error => {
-        console.log(error);
-      });
+  let valueCamelCase =
+    valueSearch.charAt(0).toUpperCase() + valueSearch.slice(1);
+  valueCamelCase === "All" ? (valueCamelCase = "") : null;
+  axios
+    .get(`${url}/api/searchapi?q=${valueCamelCase}&page=${e.target.innerText}`)
+    .then(result => {
+      displayResults(result.data.recipes);
+    })
+    .catch(error => {
+      console.log(error);
+    });
 }
 
 // Get details fo recipe
@@ -116,7 +123,15 @@ function getAllRecipeDetails(e) {
   axios
     .get(`${url}/api/getAPI?rID=${id}`)
     .then(result => {
-      const {imageURL,title,type,duration,part,ingredients,instructions} = result.data
+      const {
+        imageURL,
+        title,
+        type,
+        duration,
+        part,
+        ingredients,
+        instructions
+      } = result.data;
       const markup = `
       <div class="columns is-desktop " >
           <div class="column"> <img src="${imageURL}" alt="" class="img-recipe"/></div>
@@ -140,18 +155,16 @@ function getAllRecipeDetails(e) {
     .catch(err => console.log(err));
 }
 
-
-
 function removeBackgroundImageDisplay() {
-  randomImgContainer.innerHTML=""
+  randomImgContainer.innerHTML = "";
 }
 function addBackgroundImageDisplay() {
-  if(!randomImgContainer.innerHTML){  
-  const markup  = `<div class="random-img-container-not-hidden">
+  if (!randomImgContainer.innerHTML) {
+    const markup = `<div class="random-img-container-not-hidden">
   <img src="3.jpg" alt="" id="random-image" class="img-not-hidden">
-</div>`
-  randomImgContainer.insertAdjacentHTML("afterbegin",markup)
-}
+</div>`;
+    randomImgContainer.insertAdjacentHTML("afterbegin", markup);
+  }
 }
 
 function toggleRecipeDetails() {
@@ -165,34 +178,35 @@ function toggleRecipeDetails() {
 }
 
 const Pagination = {
-  markup: '',
-  step:2,
+  markup: "",
+  step: 2,
   // converting initialize data
-  Extend: function(size,page) {
-      Pagination.size = size
-      Pagination.page = page ;
+  Extend: function(size, page) {
+    Pagination.size = size;
+    Pagination.page = page;
   },
 
   // add pages by number (from [s] to [f])
   Add: function(s, f) {
-      for (let i = s; i < f; i++) {
-          Pagination.markup += `
+    for (let i = s; i < f; i++) {
+      Pagination.markup += `
           <li>
           <a class="pagination-link" aria-label="Goto page ${i}">${i}</a>
         </li>`;
-      }
+    }
   },
 
   // add last page with separator
   Last: function() {
-      Pagination.markup += 
-      `<li><span class="pagination-ellipsis">&hellip;</span></li>
-      <li><a class="pagination-link" aria-label="Goto page ${Pagination.size}">${Pagination.size}</a></li>`;
+    Pagination.markup += `<li><span class="pagination-ellipsis">&hellip;</span></li>
+      <li><a class="pagination-link" aria-label="Goto page ${
+        Pagination.size
+      }">${Pagination.size}</a></li>`;
   },
 
   // add first page with separator
   First: function() {
-      Pagination.markup += `
+    Pagination.markup += `
       <li>
       <a class="pagination-link" aria-label="Goto page 1">1</a>
     </li>
@@ -201,54 +215,56 @@ const Pagination = {
 
   // change page
   Click: function(e) {
-      Pagination.page = +this.innerHTML;
-      fetchDataPagination(e);
-      Pagination.Start()
+    Pagination.page = +this.innerHTML;
+    fetchDataPagination(e);
+    Pagination.Start();
   },
 
   // binding pages
   Bind: function() {
-      const a = paginationContainer.getElementsByTagName('a');
-      //check if this is current page
-      for (let i = 0; i < a.length; i++) {
-          if (+a[i].innerHTML === Pagination.page) a[i].classList.add("is-current")
-          a[i].onclick = Pagination.Click
-      }
+    const a = paginationContainer.getElementsByTagName("a");
+    //check if this is current page
+    for (let i = 0; i < a.length; i++) {
+      if (+a[i].innerHTML === Pagination.page) a[i].classList.add("is-current");
+      a[i].onclick = Pagination.Click;
+    }
   },
 
   // find pagination type
   Start: function() {
-      if (Pagination.size < Pagination.step * 2 + 6) {
-          Pagination.Add(1, Pagination.size + 1);
-      }
-      else if (Pagination.page < Pagination.step * 2 + 1) {
-          Pagination.Add(1, Pagination.step * 2 + 4);
-          Pagination.Last();
-      }
-      else if (Pagination.page > Pagination.size - Pagination.step * 2) {
-          Pagination.First();
-          Pagination.Add(Pagination.size - Pagination.step * 2 - 2, Pagination.size + 1);
-      }
-      else {
-          Pagination.First();
-          Pagination.Add(Pagination.page - Pagination.step, Pagination.page + Pagination.step + 1);
-          Pagination.Last();
-      }
-      Pagination.Create();
+    if (Pagination.size < Pagination.step * 2 + 6) {
+      Pagination.Add(1, Pagination.size + 1);
+    } else if (Pagination.page < Pagination.step * 2 + 1) {
+      Pagination.Add(1, Pagination.step * 2 + 4);
+      Pagination.Last();
+    } else if (Pagination.page > Pagination.size - Pagination.step * 2) {
+      Pagination.First();
+      Pagination.Add(
+        Pagination.size - Pagination.step * 2 - 2,
+        Pagination.size + 1
+      );
+    } else {
+      Pagination.First();
+      Pagination.Add(
+        Pagination.page - Pagination.step,
+        Pagination.page + Pagination.step + 1
+      );
+      Pagination.Last();
+    }
+    Pagination.Create();
   },
-
 
   Create: function() {
     paginationContainer.innerHTML = Pagination.markup;
-    Pagination.markup = '';
+    Pagination.markup = "";
     Pagination.Bind();
   },
 
   // init
-  Init: function(size,page) {
-      Pagination.Extend(size,page);
-      Pagination.Create();
-      Pagination.Start();
+  Init: function(size, page) {
+    Pagination.Extend(size, page);
+    Pagination.Create();
+    Pagination.Start();
   }
 };
 
