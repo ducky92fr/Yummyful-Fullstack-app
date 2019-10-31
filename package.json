@@ -24,7 +24,7 @@
     "express-session": "^1.16.1",
     "hbs": "^4.0.1",
     "hbs-utils": "0.0.4",
-    "mongoose": "^5.2.10"
+    "mongoose": "^5.7.5"
   },
   "engines": {
     "node": "10.15.3"
